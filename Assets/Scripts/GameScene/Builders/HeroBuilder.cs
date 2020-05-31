@@ -28,6 +28,7 @@ public class HeroBuilder : MonoBehaviour, SceneHeroBuilder
     private Dictionary<WeaponType, int> buildDefaultWeaponsData() {
         Dictionary<WeaponType, int> weapons = new Dictionary<WeaponType, int>();
         weapons.Add(WeaponType.MACHINE_GUN, 1);
+        weapons.Add(WeaponType.RAIL_GUN, 1);
         return weapons;
     }
 }

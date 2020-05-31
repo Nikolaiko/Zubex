@@ -5,6 +5,7 @@ using UnityEngine;
 public class ZubexHeroArsenal : MonoBehaviour, WeaponArsenal
 {
     public GameObject machineGunBulletInstance;
+    public GameObject railGunBulletInstance;
 
     private int cycleTotalCount = 0;
 
@@ -34,7 +35,7 @@ public class ZubexHeroArsenal : MonoBehaviour, WeaponArsenal
     public void initArsenal() {
         weaponsArsenal.Clear();
         weaponsArsenal.Add(new MacineGun(gameObject, machineGunBulletInstance));
-        weaponsArsenal.Add(new RailGun());
+        weaponsArsenal.Add(new RailGun(gameObject, railGunBulletInstance));
 
         lastTimeShot = 0.0f;
         cycleTotalCount = weaponsArsenal.Count * 2;

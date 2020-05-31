@@ -6,9 +6,11 @@ public class SceneObject : MonoBehaviour
     private SceneHeroBuilder sceneHeroBuilder;
     private ZubexGameControl userControl;
 
+    private Vector2 characterStartingPosition;
     private ZubexGameCharacter character;
 
     public void Awake() {
+        InitVariables();
         initMainObjects();
     }
 
@@ -19,6 +21,7 @@ public class SceneObject : MonoBehaviour
 
         if (sceneHeroBuilder != null) {
             character = sceneHeroBuilder.buildHero();
+            character.setPosition(characterStartingPosition);
             character.addToScene(gameObject);
             character.activate();
         }
@@ -29,8 +32,13 @@ public class SceneObject : MonoBehaviour
         }
     }
 
-    private void userChangeWeaponCallback(bool toNextWeapon) {
-        Debug.Log("CHANGE WEAPON!");
+    public void Update() {
+        if (ScreenHelper.isOutOfScreen(character.transform.position)) {
+            character.setPosition(characterStartingPosition);
+        }
+    }
+
+    private void userChangeWeaponCallback(bool toNextWeapon) {        
         if (toNextWeapon) {
             character.nextWeapon();
         } else {
@@ -40,6 +48,10 @@ public class SceneObject : MonoBehaviour
 
     private void userMoveActionCallback(Vector2 moveVector) {
         character.move(moveVector);
+    }
+
+    private void InitVariables() {
+        characterStartingPosition = ScreenHelper.screenToCameraPosition(new Vector2(Screen.width / 4, Screen.height / 2));        
     }
 
     private void initMainObjects() {

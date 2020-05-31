@@ -82,6 +82,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   machineGunBulletInstance: {fileID: 6073604119808477360, guid: a490e3be03a1ae24da4290b2c5f0e267,
     type: 3}
+  railGunBulletInstance: {fileID: 1379579889726202552, guid: 9cb82256383a8be429b26c8ae1d92b03,
+    type: 3}
 --- !u!1 &6087865226687547470
 GameObject:
   m_ObjectHideFlags: 0

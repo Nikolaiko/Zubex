@@ -5,7 +5,7 @@ public class ZubexGameCharacter : MonoBehaviour, BasicGameObject
 {
     private const int SPEED_VALUE = 10;
 
-    private bool isActive = false;
+    private bool isActive = false;    
 
     private Rigidbody2D heroBody;
     private WeaponArsenal weaponsArsenal;
@@ -15,6 +15,10 @@ public class ZubexGameCharacter : MonoBehaviour, BasicGameObject
 
         weaponsArsenal = GetComponent<WeaponArsenal>();
         weaponsArsenal.initArsenal();
+    }    
+
+    public void setPosition(Vector2 newPosition) {
+        transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
     }
 
     public void applyWeaponSettings(Dictionary<WeaponType, int> settings) {
