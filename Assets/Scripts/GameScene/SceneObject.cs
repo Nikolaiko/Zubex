@@ -5,6 +5,7 @@ public class SceneObject : MonoBehaviour
     private SceneBackground sceneBackground;
     private SceneHeroBuilder sceneHeroBuilder;
     private ZubexGameControl userControl;
+    private GUIManager guiManager;
 
     private Vector2 characterStartingPosition;
     private ZubexGameCharacter character;
@@ -24,6 +25,8 @@ public class SceneObject : MonoBehaviour
             character.setPosition(characterStartingPosition);
             character.addToScene(gameObject);
             character.activate();
+
+            guiManager.activeWeaponChange(character.getActiveWeaponType());
         }
 
         if (userControl != null) {
@@ -38,12 +41,14 @@ public class SceneObject : MonoBehaviour
         }
     }
 
-    private void userChangeWeaponCallback(bool toNextWeapon) {        
+    private void userChangeWeaponCallback(bool toNextWeapon) {
+        WeaponType newType = WeaponType.NOT_SET;
         if (toNextWeapon) {
-            character.nextWeapon();
+            newType = character.nextWeapon();
         } else {
-            character.prevWeapon();
+            newType = character.prevWeapon();
         }
+        guiManager.activeWeaponChange(newType);
     }
 
     private void userMoveActionCallback(Vector2 moveVector) {
@@ -55,6 +60,11 @@ public class SceneObject : MonoBehaviour
     }
 
     private void initMainObjects() {
+        GameObject guiGameObject = GameObject.FindGameObjectWithTag(GameObjectTags.GUI_MANAGER_TAG);
+        if (guiGameObject != null) {
+            guiManager = guiGameObject.GetComponent<GUIManager>();
+        }
+
         GameObject backgroundObject = GameObject.FindGameObjectWithTag(GameObjectTags.SCENE_BACKGROUND_TAG);
         if (backgroundObject != null) {
             sceneBackground = backgroundObject.GetComponent<SceneBackground>();

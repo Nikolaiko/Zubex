@@ -6,6 +6,7 @@ public interface WeaponArsenal : BasicGameObject
     void setWeaponTypeLevel(WeaponType weaponType, int levelValue);
     void upgradeWeapon(WeaponType weaponType);
     void downgradeWeapon(WeaponType weaponType);
-    void prevWeapon();
-    void nextWeapon();
+    WeaponType prevWeapon();
+    WeaponType nextWeapon();
+    WeaponType getActiveWeaponType();
 }

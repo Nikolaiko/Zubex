@@ -7,6 +7,8 @@ TagManager:
   - BackgroundBuilder
   - HeroBuilder
   - ControlObject
+  - GUIManager
+  - EnemiesBuilder
   layers:
   - Default
   - TransparentFX

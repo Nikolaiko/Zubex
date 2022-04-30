@@ -62,11 +62,16 @@ public class ZubexGameCharacter : MonoBehaviour, BasicGameObject
         heroBody.velocity = Vector2.zero;        
     }
 
-    public void nextWeapon() {
-        weaponsArsenal.nextWeapon();
+    public WeaponType nextWeapon() {
+        return weaponsArsenal.nextWeapon();
     }
 
-    public void prevWeapon() {
-        weaponsArsenal.prevWeapon();
+    public WeaponType prevWeapon() {
+        return weaponsArsenal.prevWeapon();
+    }
+
+    public WeaponType getActiveWeaponType()
+    {
+        return weaponsArsenal.getActiveWeaponType();
     }
 }

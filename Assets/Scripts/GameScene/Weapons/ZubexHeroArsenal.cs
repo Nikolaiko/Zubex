@@ -16,10 +16,6 @@ public class ZubexHeroArsenal : MonoBehaviour, WeaponArsenal
     private List<BasicWeapon> weaponsArsenal = new List<BasicWeapon>();
     private int activeWeaponIndex;
  
-    public void Start() {
-        
-    }
-    
     public void activate() {
         isActivated = true;
         weaponsArsenal[activeWeaponIndex].activate();
@@ -70,10 +66,11 @@ public class ZubexHeroArsenal : MonoBehaviour, WeaponArsenal
         }
     }
 
-    public void nextWeapon() {
+    public WeaponType nextWeapon() {
         weaponsArsenal[activeWeaponIndex].deactivate();
 
         BasicWeapon findedWeapon = null;
+        WeaponType findedWeaponType = WeaponType.NOT_SET;
         int cycleCount = 0;
 
         while (cycleCount < cycleTotalCount) {
@@ -91,16 +88,19 @@ public class ZubexHeroArsenal : MonoBehaviour, WeaponArsenal
         if (findedWeapon != null) {
             findedWeapon.activate();
             findedWeapon.prepareWeapon();
+            findedWeaponType = findedWeapon.getType();
         } else {
             //Error Loger
         }
+        return findedWeaponType;
         
     }
 
-    public void prevWeapon() {
+    public WeaponType prevWeapon() {
         weaponsArsenal[activeWeaponIndex].deactivate();
 
         BasicWeapon findedWeapon = null;
+        WeaponType findedWeaponType = WeaponType.NOT_SET;
         int cycleCount = 0;
 
         while (cycleCount < cycleTotalCount) {
@@ -117,9 +117,16 @@ public class ZubexHeroArsenal : MonoBehaviour, WeaponArsenal
         if (findedWeapon != null) {
             findedWeapon.activate();
             findedWeapon.prepareWeapon();
+            findedWeaponType = findedWeapon.getType();
         } else {
             //Error Loger
         }
+        return findedWeaponType;
+    }
+
+    public WeaponType getActiveWeaponType()
+    {
+        return weaponsArsenal[activeWeaponIndex].getType();
     }
 
     public void Update() {
