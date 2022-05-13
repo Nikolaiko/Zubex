@@ -6,6 +6,7 @@ public class SceneObject : MonoBehaviour
     private SceneHeroBuilder sceneHeroBuilder;
     private ZubexGameControl userControl;
     private GUIManager guiManager;
+    private EnemiesGroupManager enemiesGroupManager;
 
     private Vector2 characterStartingPosition;
     private ZubexGameCharacter character;
@@ -33,6 +34,15 @@ public class SceneObject : MonoBehaviour
             userControl.OnMoveActionTrigger += userMoveActionCallback;
             userControl.OnWeaponChangeActionTrigger += userChangeWeaponCallback;
         }
+        
+        if (enemiesGroupManager != null) {
+            EnemyGroup group = enemiesGroupManager.buildEnemyGroup(EnemyGroupType.STATIC_CANNONS);
+            group.addToScene(gameObject);
+        }
+
+
+        JsonDecoder jsonDecoder = new JsonDecoder();
+        jsonDecoder.parseJson("Level1/Waves/WavesMap");
     }
 
     public void Update() {
@@ -78,6 +88,11 @@ public class SceneObject : MonoBehaviour
         GameObject controlObject = GameObject.FindGameObjectWithTag(GameObjectTags.SCENE_CONTROL_TAG);
         if (controlObject != null) {            
             userControl = controlObject.GetComponent<ZubexGameControl>();
+        }
+
+        GameObject enemiesGroupObject = GameObject.FindGameObjectWithTag(GameObjectTags.ENEMIES_BUILDER_TAG);
+        if (enemiesGroupObject != null) {
+            enemiesGroupManager = enemiesGroupObject.GetComponent<EnemiesGroupManager>();
         }
     }
 }

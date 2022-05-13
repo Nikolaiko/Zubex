@@ -1,0 +1,9 @@
+{
+  "initialDelay": 2,
+  "wavesDelay": 0,
+  "weaves": [
+    "StaticCannon",
+    "RocketWall",
+    "StaticCannon"
+  ]
+}

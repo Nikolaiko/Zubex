@@ -1200,6 +1200,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1735793915, guid: fc32fafc1159f437997e5148c234891b, type: 3}
+      propertyPath: levelNumber
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1791348608838565289, guid: fc32fafc1159f437997e5148c234891b,
         type: 3}
       propertyPath: m_RootOrder
@@ -1208,17 +1212,17 @@ PrefabInstance:
     - target: {fileID: 1791348608838565289, guid: fc32fafc1159f437997e5148c234891b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.8058043
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1791348608838565289, guid: fc32fafc1159f437997e5148c234891b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.08363289
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1791348608838565289, guid: fc32fafc1159f437997e5148c234891b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.0201917
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1791348608838565289, guid: fc32fafc1159f437997e5148c234891b,
         type: 3}
@@ -1258,11 +1262,6 @@ PrefabInstance:
     - target: {fileID: 5895409735100895654, guid: fc32fafc1159f437997e5148c234891b,
         type: 3}
       propertyPath: m_Name
-      value: EnemiesBuilder
-      objectReference: {fileID: 0}
-    - target: {fileID: 5895409735100895654, guid: fc32fafc1159f437997e5148c234891b,
-        type: 3}
-      propertyPath: m_TagString
       value: EnemiesBuilder
       objectReference: {fileID: 0}
     m_RemovedComponents: []

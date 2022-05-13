@@ -9,10 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1791348608838565289}
-  - component: {fileID: 5633381909637103165}
+  - component: {fileID: 1735793915}
+  - component: {fileID: 5983235447623898276}
   m_Layer: 0
   m_Name: EnemiesBuilder
-  m_TagString: Untagged
+  m_TagString: EnemiesBuilder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5633381909637103165
+--- !u!114 &1735793915
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,6 +42,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 5895409735100895654}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e86eb65f73f12442594d66746f552c3e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e8cd95aa31de40ef954fbeed0e8fb2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelNumber: 0
+--- !u!114 &5983235447623898276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5895409735100895654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb90b3279884e48f8aa5b6054e487382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groupBuilder: {fileID: 1735793915}
