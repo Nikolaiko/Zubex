@@ -1,13 +1,27 @@
 ﻿using UnityEngine;
 
 public class ScreenHelper
-{
+{    
+    public static float getLeftScreenBorder()
+    {
+        return Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x;
+    }
+
     public static bool isOutOfScreen(Vector3 position) {
         Vector2 screenPosition = Camera.main.WorldToScreenPoint(position);
         return screenPosition.y > Screen.height ||
             screenPosition.y < 0 ||
             screenPosition.x > Screen.width ||
             screenPosition.x < 0;            
+    }
+
+    public static bool isOnScreen(Vector3 position)
+    {
+        Vector2 screenPosition = Camera.main.WorldToScreenPoint(position);
+        return screenPosition.y < Screen.height &&
+            screenPosition.y > 0 &&
+            screenPosition.x < Screen.width &&
+            screenPosition.x > 0;
     }
 
     public static bool isEnemyOutOfScreen(Vector3 position)

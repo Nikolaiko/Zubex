@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class StaticCannon : BaseEnemy
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private static string SHOT_METHOD_NAME = "shot";
 
-    // Update is called once per frame
+    private int MIN_SHOT_DELAY = 3;
+    private int MAX_SHOT_DELAY = 5;
+
+    private int lastShotDelay = UtilConsts.INITIAL_LOW_INT_VALUE;
+      
     override public void Update()
     {
         base.Update();
+        if (lastShotDelay == UtilConsts.INITIAL_LOW_INT_VALUE && appearedOnScreen) {
+            lastShotDelay = Random.Range(MIN_SHOT_DELAY, MAX_SHOT_DELAY);
+            Invoke(SHOT_METHOD_NAME, lastShotDelay);
+        }
+    }
+
+    private void shot()
+    {        
+        lastShotDelay = Random.Range(MIN_SHOT_DELAY, MAX_SHOT_DELAY);
+        Invoke(SHOT_METHOD_NAME, lastShotDelay);
     }
 }

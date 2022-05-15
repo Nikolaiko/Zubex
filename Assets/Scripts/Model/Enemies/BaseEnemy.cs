@@ -8,6 +8,9 @@ public class BaseEnemy : MonoBehaviour, BasicGameObject
 
     public BoxCollider2D enemyCollider;
 
+    protected bool appearedOnScreen = false;
+    protected int health = 0;
+
     public void activate()
     {
         gameObject.SetActive(true);
@@ -25,6 +28,10 @@ public class BaseEnemy : MonoBehaviour, BasicGameObject
 
     public virtual void Update()
     {
+        if (ScreenHelper.isOnScreen(transform.position)) {
+            appearedOnScreen = true;
+        }
+
         if (ScreenHelper.isEnemyOutOfScreen(transform.position)) {
             EnemyDieEvent?.Invoke(this);
         }
@@ -33,5 +40,15 @@ public class BaseEnemy : MonoBehaviour, BasicGameObject
     public void destroyEnemy()
     {
         Destroy(gameObject);
+    }
+
+    public void applyDamage(int incomeDamage)
+    {
+        if (appearedOnScreen) {
+            health -= incomeDamage;
+            if (health <= 0) {
+                EnemyDieEvent?.Invoke(this);
+            }
+        }        
     }
 }

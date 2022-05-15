@@ -4,13 +4,16 @@ using UnityEngine;
 public class ZubexGameCharacter : MonoBehaviour, BasicGameObject
 {
     private const int SPEED_VALUE = 10;
+    private const int STARTING_HEALTH = 0;
 
+    private int health = 0;
     private bool isActive = false;    
 
     private Rigidbody2D heroBody;
     private WeaponArsenal weaponsArsenal;
 
     public void Awake() {
+        health = STARTING_HEALTH;
         heroBody = GetComponent<Rigidbody2D>();
 
         weaponsArsenal = GetComponent<WeaponArsenal>();
@@ -47,6 +50,12 @@ public class ZubexGameCharacter : MonoBehaviour, BasicGameObject
                 heroBody.velocity = new Vector2(heroBody.velocity.x, 0);
             }
         }            
+    }
+
+    public void applyDamage(int incomeDamage)
+    {
+        health -= incomeDamage;
+        print("Hero hit");
     }
 
     public void activate() {

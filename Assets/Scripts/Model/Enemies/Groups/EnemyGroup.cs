@@ -9,7 +9,7 @@ public abstract class EnemyGroup : MonoBehaviour
 
     public abstract void AlignEnenmies();    
 
-    public void addToScene(GameObject sceneObject)
+    public virtual void addToScene(GameObject sceneObject)
     {
         transform.SetParent(sceneObject.transform);        
     }

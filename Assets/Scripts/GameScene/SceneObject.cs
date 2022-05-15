@@ -10,6 +10,7 @@ public class SceneObject : MonoBehaviour
 
     private Vector2 characterStartingPosition;
     private ZubexGameCharacter character;
+    private LevelWavesData wavesData;
 
     public void Awake() {
         InitVariables();
@@ -38,11 +39,7 @@ public class SceneObject : MonoBehaviour
         if (enemiesGroupManager != null) {
             EnemyGroup group = enemiesGroupManager.buildEnemyGroup(EnemyGroupType.STATIC_CANNONS);
             group.addToScene(gameObject);
-        }
-
-
-        JsonDecoder jsonDecoder = new JsonDecoder();
-        jsonDecoder.parseJson("Level1/Waves/WavesMap");
+        }        
     }
 
     public void Update() {
@@ -66,6 +63,9 @@ public class SceneObject : MonoBehaviour
     }
 
     private void InitVariables() {
+        JsonDecoder jsonDecoder = new JsonDecoder();
+        wavesData = jsonDecoder.parseWavesData("Level1/Waves/WavesMap");
+
         characterStartingPosition = ScreenHelper.screenToCameraPosition(new Vector2(Screen.width / 4, Screen.height / 2));        
     }
 

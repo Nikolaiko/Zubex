@@ -5,7 +5,7 @@ using UnityEngine;
 public class StaticCannonsGroup : EnemyGroup
 {   
     public static int ENEMIES_COUNT = 5;
-    private static float GROUP_SPEED = 0.5f;    
+    private static float GROUP_SPEED = 0.7f;    
 
     private List<BaseEnemy> enemiesInGroup = new List<BaseEnemy>();
 
@@ -43,6 +43,19 @@ public class StaticCannonsGroup : EnemyGroup
         );
     }
 
+    public override void addToScene(GameObject sceneObject)
+    {
+        base.addToScene(sceneObject);
+
+        Vector2 enemySize = enemiesInGroup[0].getSize();
+        Vector3 startPosition = new Vector3(
+            ScreenHelper.getLeftScreenBorder() + enemySize.x,
+            transform.position.y,
+            transform.position.z
+        );
+        transform.position = startPosition;
+    }
+
     public void Update()
     {
         gameObject.transform.Translate(Vector3.left * GROUP_SPEED * Time.deltaTime);
@@ -64,7 +77,5 @@ public class StaticCannonsGroup : EnemyGroup
         if (enemiesInGroup.Count == 0) {
             destroyGroup();
         }
-    }
-
-    
+    }  
 }
