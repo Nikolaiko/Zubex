@@ -37,8 +37,8 @@ public class SceneObject : MonoBehaviour
         }
         
         if (enemiesGroupManager != null) {
-            EnemyGroup group = enemiesGroupManager.buildEnemyGroup(EnemyGroupType.STATIC_CANNONS);
-            group.addToScene(gameObject);
+            enemiesGroupManager.setWavesData(wavesData);
+            EnemyGroup group = enemiesGroupManager.buildEnemyGroup(EnemyGroupType.STATIC_CANNONS);            
         }        
     }
 
@@ -93,6 +93,7 @@ public class SceneObject : MonoBehaviour
         GameObject enemiesGroupObject = GameObject.FindGameObjectWithTag(GameObjectTags.ENEMIES_BUILDER_TAG);
         if (enemiesGroupObject != null) {
             enemiesGroupManager = enemiesGroupObject.GetComponent<EnemiesGroupManager>();
+            enemiesGroupManager.setSceneObject(gameObject);
         }
     }
 }

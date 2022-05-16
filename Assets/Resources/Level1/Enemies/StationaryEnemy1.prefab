@@ -100,6 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyCollider: {fileID: 1736220991602160737}
+  bulletInstance: {fileID: 5964973537015259102, guid: ea695626c17774d0c8d99b5779d3431a,
+    type: 3}
 --- !u!61 &1736220991602160737
 BoxCollider2D:
   m_ObjectHideFlags: 0

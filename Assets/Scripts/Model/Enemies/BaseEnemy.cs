@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class BaseEnemy : MonoBehaviour, BasicGameObject
+public abstract class BaseEnemy : MonoBehaviour, BasicGameObject
 {
     public delegate void EnemyDieEventHandler(BaseEnemy enemy);
     public event EnemyDieEventHandler EnemyDieEvent;
