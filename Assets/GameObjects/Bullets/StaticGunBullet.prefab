@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6306244282755709679}
   - component: {fileID: 8897064755799434553}
-  - component: {fileID: 8909908494998896293}
   - component: {fileID: 2219933940602180504}
   - component: {fileID: 2107010810786079468}
+  - component: {fileID: -604484892963176488}
   m_Layer: 0
   m_Name: StaticGunBullet
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5964973537015259102}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.47619778, y: -0.6133778, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -87,18 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8909908494998896293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5964973537015259102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eba19f2489d031848b2c7aa3346a1951, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &2219933940602180504
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -136,3 +124,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-604484892963176488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5964973537015259102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18e318c1eee674bb29647bb2c1be35d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

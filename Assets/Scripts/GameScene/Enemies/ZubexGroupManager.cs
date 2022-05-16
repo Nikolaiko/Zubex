@@ -7,6 +7,7 @@ public class ZubexGroupManager : MonoBehaviour, EnemiesGroupManager
     public ZubexEnemyGroupBuilder groupBuilder;
 
     private EnemyGroup currentGroup;
+    private GameObject groupScene;
     private LevelWavesData wavesData;
     private int currentGroupIndex;
 
@@ -18,7 +19,13 @@ public class ZubexGroupManager : MonoBehaviour, EnemiesGroupManager
         }
         currentGroup = groupBuilder.buildEnemyGroup(wavesData.weaves[currentGroupIndex]);
         currentGroup.OnGroupDestroy += onGroupDestroy;
+        currentGroup.addToScene(groupScene);
         return currentGroup;
+    }
+
+    public void setSceneObject(GameObject sceneObject)
+    {
+        groupScene = sceneObject;
     }
 
     public void setWavesData(LevelWavesData data)
