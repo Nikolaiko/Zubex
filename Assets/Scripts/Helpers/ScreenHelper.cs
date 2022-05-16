@@ -7,6 +7,21 @@ public class ScreenHelper
         return Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x;
     }
 
+    public static float getTopScreenBorder()
+    {
+        return Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0)).y;
+    }
+
+    public static float getBottomScreenBorder()
+    {
+        return Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0)).y;
+    }
+
+    public static float getRightScreenBorder()
+    {
+        return Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0)).x;
+    }
+
     public static bool isOutOfScreen(Vector3 position) {
         Vector2 screenPosition = Camera.main.WorldToScreenPoint(position);
         return screenPosition.y > Screen.height ||
@@ -33,9 +48,8 @@ public class ScreenHelper
     }
 
 
-    public static Vector2 screenToCameraPosition(Vector2 screenPosition) {
+    public static Vector3 screenToCameraPosition(Vector2 screenPosition) {
         Vector3 screenPositionInThreeDimensions = new Vector3(screenPosition.x, screenPosition.y, 0.0f);
-        Vector3 convertedPosition = Camera.main.ScreenToViewportPoint(screenPositionInThreeDimensions);
-        return new Vector2(convertedPosition.x, convertedPosition.y);
+        return Camera.main.ScreenToViewportPoint(screenPositionInThreeDimensions);        
     }
 }

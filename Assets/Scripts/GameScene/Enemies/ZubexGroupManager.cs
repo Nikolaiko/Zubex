@@ -36,6 +36,9 @@ public class ZubexGroupManager : MonoBehaviour, EnemiesGroupManager
 
     private void onGroupDestroy(EnemyGroup group)
     {
-        Destroy(group.gameObject);        
+        print("DESTROY GROUP");
+        Destroy(group.gameObject);
+        currentGroupIndex += 1;
+        buildEnemyGroup(wavesData.weaves[currentGroupIndex]);
     }
 }

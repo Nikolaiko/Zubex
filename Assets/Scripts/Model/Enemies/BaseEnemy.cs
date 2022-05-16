@@ -47,7 +47,7 @@ public abstract class BaseEnemy : MonoBehaviour, BasicGameObject
         if (appearedOnScreen) {
             health -= incomeDamage;
             if (health <= 0) {
-                EnemyDieEvent?.Invoke(this);
+                //EnemyDieEvent?.Invoke(this);
             }
         }        
     }

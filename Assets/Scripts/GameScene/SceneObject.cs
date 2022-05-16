@@ -8,7 +8,7 @@ public class SceneObject : MonoBehaviour
     private GUIManager guiManager;
     private EnemiesGroupManager enemiesGroupManager;
 
-    private Vector2 characterStartingPosition;
+    private Vector3 characterStartingPosition;
     private ZubexGameCharacter character;
     private LevelWavesData wavesData;
 
@@ -37,8 +37,9 @@ public class SceneObject : MonoBehaviour
         }
         
         if (enemiesGroupManager != null) {
+            print("BULD GROUP");
             enemiesGroupManager.setWavesData(wavesData);
-            EnemyGroup group = enemiesGroupManager.buildEnemyGroup(EnemyGroupType.STATIC_CANNONS);            
+            EnemyGroup group = enemiesGroupManager.buildEnemyGroup(EnemyGroupType.ROCKET_WALL);            
         }        
     }
 

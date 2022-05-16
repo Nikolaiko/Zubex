@@ -11,7 +11,7 @@ public class ZubexEnemyGroupBuilder : MonoBehaviour
     public EnemyGroup buildEnemyGroup(EnemyGroupType groupType)
     {
         EnemyGroup buildedGroup = null;
-
+        print(groupType);
         switch(groupType) {
         case EnemyGroupType.STATIC_CANNONS: {
                 buildedGroup = buildStaticCannons();
@@ -22,6 +22,8 @@ public class ZubexEnemyGroupBuilder : MonoBehaviour
                 break;
             }
         }
+
+        buildedGroup.transform.position = Vector3.zero;
         return buildedGroup;
 
     }
@@ -35,14 +37,22 @@ public class ZubexEnemyGroupBuilder : MonoBehaviour
             GameObject enemyObject = buildEnemy(EnemyType.STATIC_CANNON);
             group.AddEnemy(enemyObject.GetComponent<BaseEnemy>());
         }
-        group.AlignEnenmies();
-
+        group.AlignEnenmies();        
         return group;
     }
 
     private EnemyGroup buildRocketWall()
     {
-        return new StaticCannonsGroup();
+        print("ROCKET!!!");
+        GameObject groupObject = new GameObject("RocketWallEnemyGroup");
+        RocketWallGroup group = groupObject.AddComponent<RocketWallGroup>();
+        for (int i = 0; i < StaticCannonsGroup.ENEMIES_COUNT; i++) {
+            GameObject enemyObject = buildEnemy(EnemyType.ROCKET_WALL_BRICK);
+            group.AddEnemy(enemyObject.GetComponent<BaseEnemy>());
+        }
+        group.AlignEnenmies();
+
+        return group;
     }
 
     #region Build Enemy Object

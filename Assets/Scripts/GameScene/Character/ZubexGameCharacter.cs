@@ -20,8 +20,8 @@ public class ZubexGameCharacter : MonoBehaviour, BasicGameObject
         weaponsArsenal.initArsenal();
     }    
 
-    public void setPosition(Vector2 newPosition) {
-        transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+    public void setPosition(Vector3 newPosition) {
+        transform.position = newPosition;
     }
 
     public void applyWeaponSettings(Dictionary<WeaponType, int> settings) {
