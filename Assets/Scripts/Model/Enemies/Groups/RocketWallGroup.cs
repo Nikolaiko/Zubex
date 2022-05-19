@@ -6,7 +6,7 @@ using UnityEngine;
 public class RocketWallGroup : EnemyGroup
 {
     public static int ENEMIES_COUNT = 5;
-    private static float GROUP_SPEED = 0.7f;
+    private static string START_FUNCTION_NAME = "startRockets";
 
     private List<RocketShip> enemiesInGroup = new List<RocketShip>();  
 
@@ -81,16 +81,21 @@ public class RocketWallGroup : EnemyGroup
         ).Count;
 
         if (notReadyRockets == 0) {
-            float top = ScreenHelper.getTopScreenBorder();
-            float bottom = ScreenHelper.getBottomScreenBorder();
-            float right = ScreenHelper.getRightScreenBorder();
-            Vector2 size = enemiesInGroup[0].getSize();
+            Invoke(START_FUNCTION_NAME, 1.2f);
+        }
+    }
 
-            float endX = right - size.x;
+    private void startRockets()
+    {
+        float top = ScreenHelper.getTopScreenBorder();
+        float bottom = ScreenHelper.getBottomScreenBorder();
+        float right = ScreenHelper.getRightScreenBorder();
+        Vector2 size = enemiesInGroup[0].getSize();
 
-            foreach (RocketShip ship in enemiesInGroup) {
-                ship.attackPosition(new Vector3(endX, Random.Range(bottom, top), 0));    
-            }
+        float endX = right - size.x;
+
+        foreach (RocketShip ship in enemiesInGroup) {
+            ship.attackPosition(new Vector3(endX, Random.Range(bottom, top), 0));
         }
     }
 }

@@ -36,10 +36,8 @@ public class SceneObject : MonoBehaviour
             userControl.OnWeaponChangeActionTrigger += userChangeWeaponCallback;
         }
         
-        if (enemiesGroupManager != null) {
-            print("BULD GROUP");
-            enemiesGroupManager.setWavesData(wavesData);
-            EnemyGroup group = enemiesGroupManager.buildEnemyGroup(EnemyGroupType.ROCKET_WALL);            
+        if (enemiesGroupManager != null) {            
+            enemiesGroupManager.setWavesData(wavesData);            
         }        
     }
 

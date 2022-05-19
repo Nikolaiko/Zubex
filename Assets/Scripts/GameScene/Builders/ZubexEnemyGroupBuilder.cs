@@ -25,7 +25,6 @@ public class ZubexEnemyGroupBuilder : MonoBehaviour
 
         buildedGroup.transform.position = Vector3.zero;
         return buildedGroup;
-
     }
 
     private EnemyGroup buildStaticCannons()
@@ -42,11 +41,10 @@ public class ZubexEnemyGroupBuilder : MonoBehaviour
     }
 
     private EnemyGroup buildRocketWall()
-    {
-        print("ROCKET!!!");
+    {     
         GameObject groupObject = new GameObject("RocketWallEnemyGroup");
         RocketWallGroup group = groupObject.AddComponent<RocketWallGroup>();
-        for (int i = 0; i < StaticCannonsGroup.ENEMIES_COUNT; i++) {
+        for (int i = 0; i < RocketWallGroup.ENEMIES_COUNT; i++) {
             GameObject enemyObject = buildEnemy(EnemyType.ROCKET_WALL_BRICK);
             group.AddEnemy(enemyObject.GetComponent<BaseEnemy>());
         }

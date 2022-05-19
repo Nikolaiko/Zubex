@@ -7,8 +7,8 @@ public class RocketShip : BaseEnemy
     public delegate void RocketReadyDelegate();
     public event RocketReadyDelegate RocketReadyEvent;
 
-    private static float INITIAL_SPEED = 0.06f;
-    private static float ATTACKING_SPEED = 0.1f;
+    private static float INITIAL_SPEED = 0.02f;
+    private static float ATTACKING_SPEED = 0.07f;
     private static float DISTANCE_ACCURACY = 0.001f;
     private static string ATTACK_METHOD_NAME = "startAttack";
 
@@ -23,7 +23,6 @@ public class RocketShip : BaseEnemy
     {
         startingDestination = location;
         movingToStartDestination = true;
-
     }
 
     public override void Update()
