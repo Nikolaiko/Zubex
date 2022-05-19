@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ZubexGroupManager : MonoBehaviour, EnemiesGroupManager
 {
+    private static string BUILD_GROUP_FUNCTION_NAME = "buildEnemyGroup";
+
     public ZubexEnemyGroupBuilder groupBuilder;
 
     private EnemyGroup currentGroup;
@@ -11,7 +13,7 @@ public class ZubexGroupManager : MonoBehaviour, EnemiesGroupManager
     private LevelWavesData wavesData;
     private int currentGroupIndex;
 
-    public EnemyGroup buildEnemyGroup(EnemyGroupType groupType)
+    private EnemyGroup buildEnemyGroup()
     {
         if (currentGroup != null) {
             Debug.LogWarning("Creating new group before destroying previous");
@@ -32,10 +34,13 @@ public class ZubexGroupManager : MonoBehaviour, EnemiesGroupManager
     {
         wavesData = data;
         currentGroupIndex = 0;
+        Invoke(BUILD_GROUP_FUNCTION_NAME, wavesData.initialDelay);
     }
 
     private void onGroupDestroy(EnemyGroup group)
-    {
-        Destroy(group.gameObject);        
+    {        
+        Destroy(group.gameObject);
+        currentGroupIndex += 1;
+        Invoke(BUILD_GROUP_FUNCTION_NAME, wavesData.wavesDelay);        
     }
 }

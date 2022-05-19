@@ -8,7 +8,7 @@ public class SceneObject : MonoBehaviour
     private GUIManager guiManager;
     private EnemiesGroupManager enemiesGroupManager;
 
-    private Vector2 characterStartingPosition;
+    private Vector3 characterStartingPosition;
     private ZubexGameCharacter character;
     private LevelWavesData wavesData;
 
@@ -36,9 +36,8 @@ public class SceneObject : MonoBehaviour
             userControl.OnWeaponChangeActionTrigger += userChangeWeaponCallback;
         }
         
-        if (enemiesGroupManager != null) {
-            enemiesGroupManager.setWavesData(wavesData);
-            EnemyGroup group = enemiesGroupManager.buildEnemyGroup(EnemyGroupType.STATIC_CANNONS);            
+        if (enemiesGroupManager != null) {            
+            enemiesGroupManager.setWavesData(wavesData);            
         }        
     }
 
