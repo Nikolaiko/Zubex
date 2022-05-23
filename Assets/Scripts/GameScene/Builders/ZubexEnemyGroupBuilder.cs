@@ -8,13 +8,13 @@ public class ZubexEnemyGroupBuilder : MonoBehaviour
     private Dictionary<EnemyType, Object> loadedEnemies = new Dictionary<EnemyType, Object>();
 
 
-    public EnemyGroup buildEnemyGroup(EnemyGroupType groupType)
+    public EnemyGroup buildEnemyGroup(EnemyGroupData data)
     {
+        print(data.type);
         EnemyGroup buildedGroup = null;
-        print(groupType);
-        switch(groupType) {
+        switch(data.type) {
         case EnemyGroupType.STATIC_CANNONS: {
-                buildedGroup = buildStaticCannons();
+                buildedGroup = buildStaticCannons(data);
                 break;
             }
         case EnemyGroupType.ROCKET_WALL: {
@@ -27,15 +27,16 @@ public class ZubexEnemyGroupBuilder : MonoBehaviour
         return buildedGroup;
     }
 
-    private EnemyGroup buildStaticCannons()
+    private EnemyGroup buildStaticCannons(EnemyGroupData data)
     {
         GameObject groupObject = new GameObject("StationarEnemyGroup");
         StaticCannonsGroup group = groupObject.AddComponent<StaticCannonsGroup>();
-
+        
         for (int i = 0; i < StaticCannonsGroup.ENEMIES_COUNT; i++) {
             GameObject enemyObject = buildEnemy(EnemyType.STATIC_CANNON);
             group.AddEnemy(enemyObject.GetComponent<BaseEnemy>());
         }
+        group.setGroupXPosition(data.positionY);
         group.AlignEnenmies();        
         return group;
     }

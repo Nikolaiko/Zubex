@@ -12,7 +12,7 @@ public class SceneObject : MonoBehaviour
     private int characterLiveCount;
     private Vector3 characterStartingPosition;
     private ZubexGameCharacter character;
-    private LevelWavesData wavesData;
+    private LevelGroupsData wavesData;
 
     public void Awake() {
         InitVariables();

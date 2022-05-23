@@ -10,7 +10,7 @@ public class ZubexGroupManager : MonoBehaviour, EnemiesGroupManager
 
     private EnemyGroup currentGroup;
     private GameObject groupScene;
-    private LevelWavesData wavesData;
+    private LevelGroupsData wavesData;
     private int currentGroupIndex;
 
     private EnemyGroup buildEnemyGroup()
@@ -19,7 +19,7 @@ public class ZubexGroupManager : MonoBehaviour, EnemiesGroupManager
             Debug.LogWarning("Creating new group before destroying previous");
             Destroy(currentGroup.gameObject);
         }
-        currentGroup = groupBuilder.buildEnemyGroup(wavesData.weaves[currentGroupIndex]);
+        currentGroup = groupBuilder.buildEnemyGroup(wavesData.groups[currentGroupIndex]);
         currentGroup.OnGroupDestroy += onGroupDestroy;
         currentGroup.addToScene(groupScene);
         return currentGroup;
@@ -30,7 +30,7 @@ public class ZubexGroupManager : MonoBehaviour, EnemiesGroupManager
         groupScene = sceneObject;
     }
 
-    public void setWavesData(LevelWavesData data)
+    public void setWavesData(LevelGroupsData data)
     {
         wavesData = data;
         currentGroupIndex = 0;
@@ -41,6 +41,6 @@ public class ZubexGroupManager : MonoBehaviour, EnemiesGroupManager
     {        
         Destroy(group.gameObject);
         currentGroupIndex += 1;
-        Invoke(BUILD_GROUP_FUNCTION_NAME, wavesData.wavesDelay);        
+        Invoke(BUILD_GROUP_FUNCTION_NAME, wavesData.delayBetweenWaves);        
     }
 }

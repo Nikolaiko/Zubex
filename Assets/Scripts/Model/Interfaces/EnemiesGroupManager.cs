@@ -4,5 +4,5 @@ using UnityEngine;
 public interface EnemiesGroupManager
 {
     void setSceneObject(GameObject sceneObject);
-    void setWavesData(LevelWavesData data);    
+    void setWavesData(LevelGroupsData data);    
 }

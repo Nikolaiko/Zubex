@@ -2,8 +2,16 @@
   "initialDelay": 2,
   "wavesDelay": 0,
     "weaves": [
-        "RocketWall",
-        "StaticCannon",
-        "StaticCannon"
+        {
+            "name": "StaticCannon",
+            "y": 0.3
+        },
+        {
+            "name": "StaticCannon",
+            "y": 0.7
+        },
+        {
+            "name": "RocketWall"
+        }
     ]
 }
