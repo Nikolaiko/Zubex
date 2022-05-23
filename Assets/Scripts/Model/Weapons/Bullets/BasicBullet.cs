@@ -21,7 +21,7 @@ public abstract class BasicBullet : MonoBehaviour, BasicGameObject
 
     public void OnCollisionEnter2D(Collision2D collision)
     {        
-        onCollideWithObject(collision.gameObject);
+        onCollideWithObject(collision.collider.gameObject);
     }
 
     protected abstract void onCollideWithObject(GameObject collidedObject);

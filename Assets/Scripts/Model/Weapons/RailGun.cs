@@ -20,7 +20,7 @@ public class RailGun : BasicWeapon
         if (lastTimeShot >= shotPeriod) {
             lastTimeShot = 0.0f;
             if (isWeaponActive()) {
-                GameObject.Instantiate(ammoInstance, parent.transform.position, new Quaternion());
+                //GameObject.Instantiate(ammoInstance, parent.transform.position, new Quaternion());
             }
         }        
     }

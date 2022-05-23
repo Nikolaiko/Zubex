@@ -12,7 +12,7 @@ public class ZubexGameCharacter : MonoBehaviour, BasicGameObject
     private const int SPEED_VALUE = 10;
     private const int STARTING_HEALTH = 0;
     private const int TOTAL_INVICIBILTY_TIME = 3;
-    private const float INVICIBILTY_BLINK_INTERVAL = 0.3f;
+    private const float INVICIBILTY_BLINK_INTERVAL = 0.15f;
 
     private int health = 0;
     private float blinkStepTime = 0.0f;
@@ -78,13 +78,18 @@ public class ZubexGameCharacter : MonoBehaviour, BasicGameObject
             } else {
                 heroBody.velocity = new Vector2(heroBody.velocity.x, 0);
             }
-        }            
+        }           
     }
 
     public void applyDamage(int incomeDamage)
     {
-        health -= incomeDamage;
-        HeroDeathEvent?.Invoke(this);
+        if (!isBlinking) {
+            health -= incomeDamage;
+            if (health <= 0) {
+                HeroDeathEvent?.Invoke(this);
+                health = STARTING_HEALTH;
+            }            
+        }        
     }
 
     public void activate() {

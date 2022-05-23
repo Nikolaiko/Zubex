@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneObject : MonoBehaviour
 {
@@ -47,7 +48,7 @@ public class SceneObject : MonoBehaviour
 
     public void Update() {
         if (ScreenHelper.isOutOfScreen(character.transform.position)) {
-            character.setPosition(characterStartingPosition);
+            onHeroDeath(character);            
         }
     }
 
@@ -106,8 +107,12 @@ public class SceneObject : MonoBehaviour
     private void onHeroDeath(ZubexGameCharacter deadCharacter)
     {
         characterLiveCount--;
-
-        guiManager.setLiveCount(characterLiveCount);
-        deadCharacter.becomeInvisible();
+        if (characterLiveCount <= 0) {
+            SceneManager.LoadSceneAsync(SceneNumbers.GAME_OVER_SCENE_NUMBER);
+        } else {
+            guiManager.setLiveCount(characterLiveCount);
+            deadCharacter.becomeInvisible();
+            character.setPosition(characterStartingPosition);
+        }        
     }
 }
