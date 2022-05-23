@@ -14,7 +14,7 @@ public class StaticCannonBullet : BasicBullet
     }
 
     protected override void onCollideWithObject(GameObject collidedObject)
-    {
+    {        
         ZubexGameCharacter heroObject = collidedObject.GetComponent<ZubexGameCharacter>();
         if (heroObject != null) {
             heroObject.applyDamage(DAMAGE);

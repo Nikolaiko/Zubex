@@ -11,15 +11,8 @@ public class GUIManager : MonoBehaviour
         guiPanel.activeWeaponChange(newType);
     }
 
-
-    void Start()
+    public void setLiveCount(int count)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        guiPanel.setLivesCount(count);
     }
 }

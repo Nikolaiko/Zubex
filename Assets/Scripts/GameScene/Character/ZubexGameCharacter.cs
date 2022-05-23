@@ -3,14 +3,26 @@ using UnityEngine;
 
 public class ZubexGameCharacter : MonoBehaviour, BasicGameObject
 {
+    public delegate void HeroDeathHandler(ZubexGameCharacter character);
+    public event HeroDeathHandler HeroDeathEvent;
+
+    private SpriteRenderer cocpitRender;
+    private SpriteRenderer endgineRender;
+
     private const int SPEED_VALUE = 10;
     private const int STARTING_HEALTH = 0;
+    private const int TOTAL_INVICIBILTY_TIME = 3;
+    private const float INVICIBILTY_BLINK_INTERVAL = 0.15f;
 
     private int health = 0;
-    private bool isActive = false;    
+    private float blinkStepTime = 0.0f;
+    private float totalBlinkTime = 0.0f;
+
+    private bool isActive = false;
+    private bool isBlinking = false;
 
     private Rigidbody2D heroBody;
-    private WeaponArsenal weaponsArsenal;
+    private WeaponArsenal weaponsArsenal;    
 
     public void Awake() {
         health = STARTING_HEALTH;
@@ -18,7 +30,24 @@ public class ZubexGameCharacter : MonoBehaviour, BasicGameObject
 
         weaponsArsenal = GetComponent<WeaponArsenal>();
         weaponsArsenal.initArsenal();
-    }    
+
+
+        SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        foreach(SpriteRenderer renderer in spriteRenderers) {
+            if (renderer.gameObject.name == "HeroCocpit") {
+                cocpitRender = renderer;
+            } else if (renderer.gameObject.name == "HeroEngine") {
+                endgineRender = renderer;
+            }
+        }
+    }
+
+    public void Update()
+    {
+        if (isBlinking) {
+            blinkEffect();
+        }    
+    }
 
     public void setPosition(Vector3 newPosition) {
         transform.position = newPosition;
@@ -49,13 +78,18 @@ public class ZubexGameCharacter : MonoBehaviour, BasicGameObject
             } else {
                 heroBody.velocity = new Vector2(heroBody.velocity.x, 0);
             }
-        }            
+        }           
     }
 
     public void applyDamage(int incomeDamage)
     {
-        health -= incomeDamage;
-        print("Hero hit");
+        if (!isBlinking) {
+            health -= incomeDamage;
+            if (health <= 0) {
+                HeroDeathEvent?.Invoke(this);
+                health = STARTING_HEALTH;
+            }            
+        }        
     }
 
     public void activate() {
@@ -71,6 +105,11 @@ public class ZubexGameCharacter : MonoBehaviour, BasicGameObject
         heroBody.velocity = Vector2.zero;        
     }
 
+    public void becomeInvisible()
+    {
+        isBlinking = true;        
+    }
+
     public WeaponType nextWeapon() {
         return weaponsArsenal.nextWeapon();
     }
@@ -82,5 +121,30 @@ public class ZubexGameCharacter : MonoBehaviour, BasicGameObject
     public WeaponType getActiveWeaponType()
     {
         return weaponsArsenal.getActiveWeaponType();
+    }
+
+    private void blinkEffect()
+    {
+        totalBlinkTime += Time.deltaTime;
+        if (totalBlinkTime >= TOTAL_INVICIBILTY_TIME) {
+            totalBlinkTime = 0.0f;
+            isBlinking = false;
+
+            cocpitRender.enabled = true;
+            endgineRender.enabled = true;
+        } else {
+
+            blinkStepTime += Time.deltaTime;
+            if (blinkStepTime >= INVICIBILTY_BLINK_INTERVAL) {
+                if (endgineRender.enabled) {
+                    endgineRender.enabled = false;
+                    cocpitRender.enabled = false;                    
+                } else {
+                    endgineRender.enabled = true;
+                    cocpitRender.enabled = true;
+                }
+                blinkStepTime = 0.0f;
+            }
+        }
     }
 }

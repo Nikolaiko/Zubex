@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GUIPanel : MonoBehaviour
 {
     public GUIWeaponIcon machineGunIcon;
     public GUIWeaponIcon railGunIcon;
 
+    public Text livesCountText;
+    
     private GUIWeaponIcon activeWeapon;
 
     public void Start()
@@ -32,5 +35,10 @@ public class GUIPanel : MonoBehaviour
 
             }
         }
+    }
+
+    public void setLivesCount(int count)
+    {
+        livesCountText.text = count.ToString();
     }
 }

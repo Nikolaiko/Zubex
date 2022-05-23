@@ -37,6 +37,15 @@ public abstract class BaseEnemy : MonoBehaviour, BasicGameObject
         }
     }
 
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        ZubexGameCharacter heroObject = collision.collider.gameObject.GetComponent<ZubexGameCharacter>();
+        if (heroObject != null) {
+            heroObject.applyDamage(UtilConsts.OVERPOWERED_DAMAGE);
+            EnemyDieEvent?.Invoke(this);
+        }
+    }
+
     public void destroyEnemy()
     {
         Destroy(gameObject);

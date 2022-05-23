@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 5646157772015821795}
   - component: {fileID: -6014004588753002194}
   - component: {fileID: -8436031538440853257}
+  - component: {fileID: 92503929299647263}
+  - component: {fileID: 6985869299132460678}
   m_Layer: 0
   m_Name: HeroObject
   m_TagString: Untagged
@@ -85,6 +87,52 @@ MonoBehaviour:
     type: 3}
   railGunBulletInstance: {fileID: 1379579889726202552, guid: 9cb82256383a8be429b26c8ae1d92b03,
     type: 3}
+--- !u!95 &92503929299647263
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2335454564597318835}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d1aac7be43b4f44338c6da353ce9a940, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!61 &6985869299132460678
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2335454564597318835}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.16802692, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.8737402, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &6087865226687547470
 GameObject:
   m_ObjectHideFlags: 0
