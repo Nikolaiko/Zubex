@@ -8,6 +8,7 @@ public class SceneObject : MonoBehaviour
     private GUIManager guiManager;
     private EnemiesGroupManager enemiesGroupManager;
 
+    private int characterLiveCount;
     private Vector3 characterStartingPosition;
     private ZubexGameCharacter character;
     private LevelWavesData wavesData;
@@ -24,9 +25,12 @@ public class SceneObject : MonoBehaviour
 
         if (sceneHeroBuilder != null) {
             character = sceneHeroBuilder.buildHero();
+            character.HeroDeathEvent += onHeroDeath;
             character.setPosition(characterStartingPosition);
             character.addToScene(gameObject);
             character.activate();
+
+            character.becomeInvisible();
 
             guiManager.activeWeaponChange(character.getActiveWeaponType());
         }
@@ -65,13 +69,16 @@ public class SceneObject : MonoBehaviour
         JsonDecoder jsonDecoder = new JsonDecoder();
         wavesData = jsonDecoder.parseWavesData("Level1/Waves/WavesMap");
 
-        characterStartingPosition = ScreenHelper.screenToCameraPosition(new Vector2(Screen.width / 4, Screen.height / 2));        
+        characterStartingPosition = ScreenHelper.screenToCameraPosition(new Vector2(Screen.width / 4, Screen.height / 2));
+
+        characterLiveCount = UtilConsts.INITIAL_LIVE_COUNT;
     }
 
     private void initMainObjects() {
         GameObject guiGameObject = GameObject.FindGameObjectWithTag(GameObjectTags.GUI_MANAGER_TAG);
         if (guiGameObject != null) {
             guiManager = guiGameObject.GetComponent<GUIManager>();
+            guiManager.setLiveCount(characterLiveCount);
         }
 
         GameObject backgroundObject = GameObject.FindGameObjectWithTag(GameObjectTags.SCENE_BACKGROUND_TAG);
@@ -94,5 +101,13 @@ public class SceneObject : MonoBehaviour
             enemiesGroupManager = enemiesGroupObject.GetComponent<EnemiesGroupManager>();
             enemiesGroupManager.setSceneObject(gameObject);
         }
+    }
+
+    private void onHeroDeath(ZubexGameCharacter deadCharacter)
+    {
+        characterLiveCount--;
+
+        guiManager.setLiveCount(characterLiveCount);
+        deadCharacter.becomeInvisible();
     }
 }
