@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StaticCannonsGroup : EnemyGroup
-{   
-    public static int ENEMIES_COUNT = 5;
+{       
     private static float GROUP_SPEED = 0.7f;    
 
     private float groupYPosition = 0.0f;
@@ -17,7 +16,7 @@ public class StaticCannonsGroup : EnemyGroup
 
     public void AddEnemy(BaseEnemy enemy)
     {
-        if (enemiesInGroup.Count < ENEMIES_COUNT) {
+        if (enemiesInGroup.Count < EnemyGroupsConsts.STATIC_WALL_ENEMIES_COUNT) {
             enemiesInGroup.Add(enemy);
             enemy.transform.SetParent(gameObject.transform);
             enemy.EnemyDieEvent += onEnemyDie;
@@ -26,7 +25,8 @@ public class StaticCannonsGroup : EnemyGroup
 
     override public void AlignEnenmies()
     {
-        if (enemiesInGroup.Count < ENEMIES_COUNT) throw new NotEnougthObjects("Static Cannons");
+        if (enemiesInGroup.Count < EnemyGroupsConsts.STATIC_WALL_ENEMIES_COUNT)
+            throw new NotEnougthObjects("Static Cannons");
 
         Vector2 enemySize = enemiesInGroup[0].getSize();
 

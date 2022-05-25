@@ -4,15 +4,14 @@ using System.Linq;
 using UnityEngine;
 
 public class RocketWallGroup : EnemyGroup
-{
-    public static int ENEMIES_COUNT = 5;
+{    
     private static string START_FUNCTION_NAME = "startRockets";
 
     private List<RocketShip> enemiesInGroup = new List<RocketShip>();  
 
     public void AddEnemy(BaseEnemy enemy)
     {
-        if (enemiesInGroup.Count < ENEMIES_COUNT) {
+        if (enemiesInGroup.Count < EnemyGroupsConsts.VERTICAL_ENEMIES_COUNT) {
             float top = ScreenHelper.getTopScreenBorder();
             float bottom = ScreenHelper.getBottomScreenBorder();
            
@@ -33,7 +32,9 @@ public class RocketWallGroup : EnemyGroup
 
     public override void AlignEnenmies()
     {
-        if (enemiesInGroup.Count < ENEMIES_COUNT) throw new NotEnougthObjects("RocketWall");
+        if (enemiesInGroup.Count < EnemyGroupsConsts.VERTICAL_ENEMIES_COUNT)
+            throw new NotEnougthObjects("RocketWall");
+
         Vector2 size = enemiesInGroup[0].getSize();
         Vector3 startPosition = new Vector3(ScreenHelper.getLeftScreenBorder() - size.x / 2, 0, 0);
         Vector3 verticalPosition = startPosition;        
@@ -41,14 +42,14 @@ public class RocketWallGroup : EnemyGroup
         enemiesInGroup = enemiesInGroup.OrderBy(a => Random.Range(0, 1000)).ToList();
 
         enemiesInGroup[0].goToStartLocation(startPosition);
-        for (int i = 1; i < 3; i++) {
-            verticalPosition.y += size.y / 2;
+        for (int i = 1; i < 5; i++) {
+            verticalPosition.y += size.y / 2.5f;
             enemiesInGroup[i].goToStartLocation(verticalPosition);
         }
 
         verticalPosition = startPosition;
-        for (int i = 3; i < enemiesInGroup.Count; i++) {
-            verticalPosition.y -= size.y / 2;
+        for (int i = 5; i < enemiesInGroup.Count; i++) {
+            verticalPosition.y -= size.y / 2.5f;
             enemiesInGroup[i].goToStartLocation(verticalPosition);
         }
 
@@ -95,7 +96,7 @@ public class RocketWallGroup : EnemyGroup
         float endX = right - size.x;
 
         foreach (RocketShip ship in enemiesInGroup) {
-            ship.attackPosition(new Vector3(endX, Random.Range(bottom, top), 0));
+            ship.attack();
         }
     }
 }

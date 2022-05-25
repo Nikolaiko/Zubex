@@ -6,9 +6,9 @@ public class RocketShip : BaseEnemy
 {
     public delegate void RocketReadyDelegate();
     public event RocketReadyDelegate RocketReadyEvent;
-
+    
     private static float INITIAL_SPEED = 0.02f;
-    private static float ATTACKING_SPEED = 0.07f;
+    private static float ATTACKING_SPEED = 25.0f;
     private static float DISTANCE_ACCURACY = 0.001f;
     private static string ATTACK_METHOD_NAME = "startAttack";
 
@@ -40,12 +40,7 @@ public class RocketShip : BaseEnemy
             }
         }
         if (attacking) {
-            Vector3 newPosition = Vector3.MoveTowards(transform.position, attackDestination, ATTACKING_SPEED);
-            transform.position = newPosition;
-
-            if (Vector3.Distance(transform.position, startingDestination) <= DISTANCE_ACCURACY) {
-                attacking = false;
-            }
+            gameObject.transform.Translate(Vector3.left * ATTACKING_SPEED * Time.deltaTime);
         }
     }
 
@@ -54,9 +49,8 @@ public class RocketShip : BaseEnemy
         return rocketReady;
     }
 
-    public void attackPosition(Vector3 destination)
-    {
-        attackDestination = destination;
+    public void attack()
+    {        
         Invoke(ATTACK_METHOD_NAME, Random.Range(0, 0.7f));
     }
 

@@ -9,5 +9,8 @@ public enum EnemyGroupType
     STATIC_CANNONS,
 
     [EnumMember(Value = "RocketWall")]
-    ROCKET_WALL
+    ROCKET_WALL,
+
+    [EnumMember(Value = "MeteorsBelt")]
+    METEORS_BELT
 }

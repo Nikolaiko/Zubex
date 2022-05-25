@@ -3,15 +3,19 @@
   "wavesDelay": 0,
     "weaves": [
         {
+            "name": "MeteorsBelt",
+            "y": 0.3
+        },
+        {
+            "name": "RocketWall"
+        },
+        {
             "name": "StaticCannon",
             "y": 0.3
         },
         {
             "name": "StaticCannon",
             "y": 0.7
-        },
-        {
-            "name": "RocketWall"
-        }
+        }       
     ]
 }

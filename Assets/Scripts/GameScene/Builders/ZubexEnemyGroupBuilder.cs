@@ -10,7 +10,6 @@ public class ZubexEnemyGroupBuilder : MonoBehaviour
 
     public EnemyGroup buildEnemyGroup(EnemyGroupData data)
     {
-        print(data.type);
         EnemyGroup buildedGroup = null;
         switch(data.type) {
         case EnemyGroupType.STATIC_CANNONS: {
@@ -21,10 +20,27 @@ public class ZubexEnemyGroupBuilder : MonoBehaviour
                 buildedGroup = buildRocketWall();
                 break;
             }
+        case EnemyGroupType.METEORS_BELT: {
+                buildedGroup = buildMeteorsBelt();
+                break;
+            }
         }
 
         buildedGroup.transform.position = Vector3.zero;
         return buildedGroup;
+    }
+
+    private EnemyGroup buildMeteorsBelt()
+    {
+        GameObject groupObject = new GameObject("MeteorsBelt");
+        MeteorsBeltGroup group = groupObject.AddComponent<MeteorsBeltGroup>();
+
+        for (int i = 0; i < EnemyGroupsConsts.VERTICAL_ENEMIES_COUNT; i++) {
+            GameObject enemyObject = buildEnemy(EnemyType.METEOR);
+            group.AddEnemy(enemyObject.GetComponent<BaseEnemy>());
+        }       
+        group.AlignEnenmies();
+        return group;
     }
 
     private EnemyGroup buildStaticCannons(EnemyGroupData data)
@@ -32,7 +48,7 @@ public class ZubexEnemyGroupBuilder : MonoBehaviour
         GameObject groupObject = new GameObject("StationarEnemyGroup");
         StaticCannonsGroup group = groupObject.AddComponent<StaticCannonsGroup>();
         
-        for (int i = 0; i < StaticCannonsGroup.ENEMIES_COUNT; i++) {
+        for (int i = 0; i < EnemyGroupsConsts.STATIC_WALL_ENEMIES_COUNT; i++) {
             GameObject enemyObject = buildEnemy(EnemyType.STATIC_CANNON);
             group.AddEnemy(enemyObject.GetComponent<BaseEnemy>());
         }
@@ -45,7 +61,7 @@ public class ZubexEnemyGroupBuilder : MonoBehaviour
     {     
         GameObject groupObject = new GameObject("RocketWallEnemyGroup");
         RocketWallGroup group = groupObject.AddComponent<RocketWallGroup>();
-        for (int i = 0; i < RocketWallGroup.ENEMIES_COUNT; i++) {
+        for (int i = 0; i < EnemyGroupsConsts.VERTICAL_ENEMIES_COUNT; i++) {
             GameObject enemyObject = buildEnemy(EnemyType.ROCKET_WALL_BRICK);
             group.AddEnemy(enemyObject.GetComponent<BaseEnemy>());
         }
@@ -91,7 +107,10 @@ public class ZubexEnemyGroupBuilder : MonoBehaviour
         case EnemyType.ROCKET_WALL_BRICK:
             enemyName = "RocketEnemy";
             break;
-        }
+        case EnemyType.METEOR:
+            enemyName = "Meteor";
+            break;
+        }            
         return enemyName;
     }
 
