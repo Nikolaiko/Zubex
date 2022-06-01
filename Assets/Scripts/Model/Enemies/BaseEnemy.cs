@@ -23,7 +23,7 @@ public abstract class BaseEnemy : MonoBehaviour, BasicGameObject
 
     public Vector2 getSize()
     {
-        return enemyCollider.size;
+        return enemyCollider.size * transform.lossyScale;
     }
 
     public virtual void Update()

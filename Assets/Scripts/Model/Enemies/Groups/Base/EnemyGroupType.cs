@@ -12,5 +12,8 @@ public enum EnemyGroupType
     ROCKET_WALL,
 
     [EnumMember(Value = "MeteorsBelt")]
-    METEORS_BELT
+    METEORS_BELT,
+
+    [EnumMember(Value = "VerticalSnake")]
+    VERTICAL_SNAKE
 }

@@ -16,7 +16,7 @@ public class RocketWallGroup : EnemyGroup
             float bottom = ScreenHelper.getBottomScreenBorder();
            
             Vector3 initialPosition = new Vector3(
-                ScreenHelper.getLeftScreenBorder() + ScreenHelper.getLeftScreenBorder() / 2,
+                ScreenHelper.getRightScreenBorder() + ScreenHelper.getRightScreenBorder() / 2,
                 Random.Range(bottom, top),
                 0
             );
@@ -36,7 +36,7 @@ public class RocketWallGroup : EnemyGroup
             throw new NotEnougthObjects("RocketWall");
 
         Vector2 size = enemiesInGroup[0].getSize();
-        Vector3 startPosition = new Vector3(ScreenHelper.getLeftScreenBorder() - size.x / 2, 0, 0);
+        Vector3 startPosition = new Vector3(ScreenHelper.getRightScreenBorder() - size.x / 2, 0, 0);
         Vector3 verticalPosition = startPosition;        
 
         enemiesInGroup = enemiesInGroup.OrderBy(a => Random.Range(0, 1000)).ToList();
@@ -90,7 +90,7 @@ public class RocketWallGroup : EnemyGroup
     {
         float top = ScreenHelper.getTopScreenBorder();
         float bottom = ScreenHelper.getBottomScreenBorder();
-        float right = ScreenHelper.getRightScreenBorder();
+        float right = ScreenHelper.getLeftScreenBorder();
         Vector2 size = enemiesInGroup[0].getSize();
 
         float endX = right - size.x;

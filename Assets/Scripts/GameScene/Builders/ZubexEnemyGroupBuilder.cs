@@ -24,10 +24,27 @@ public class ZubexEnemyGroupBuilder : MonoBehaviour
                 buildedGroup = buildMeteorsBelt();
                 break;
             }
+        case EnemyGroupType.VERTICAL_SNAKE: {
+                buildedGroup = buildVerticalSnake();
+                break;
+            }
         }
 
         buildedGroup.transform.position = Vector3.zero;
         return buildedGroup;
+    }
+
+    private EnemyGroup buildVerticalSnake()
+    {
+        GameObject groupObject = new GameObject("VerticalSnake");
+        SnakeGroup group = groupObject.AddComponent<SnakeGroup>();
+
+        for (int i = 0; i < EnemyGroupsConsts.VERTICAL_SNAKE_ENEMIES_COUNT; i++) {
+            GameObject enemyObject = buildEnemy(EnemyType.VERTICAL_SNAKE_PART);
+            group.AddEnemy(enemyObject.GetComponent<BaseEnemy>());
+        }
+        group.AlignEnenmies();
+        return group;
     }
 
     private EnemyGroup buildMeteorsBelt()
@@ -110,7 +127,10 @@ public class ZubexEnemyGroupBuilder : MonoBehaviour
         case EnemyType.METEOR:
             enemyName = "Meteor";
             break;
-        }            
+        case EnemyType.VERTICAL_SNAKE_PART:
+            enemyName = "SnakePart";
+            break;
+        }        
         return enemyName;
     }
 

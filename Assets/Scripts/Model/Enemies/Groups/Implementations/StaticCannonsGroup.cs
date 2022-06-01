@@ -58,7 +58,7 @@ public class StaticCannonsGroup : EnemyGroup
         Vector2 enemySize = enemiesInGroup[0].getSize();
 
         Vector3 startPosition = new Vector3(
-            ScreenHelper.getLeftScreenBorder() + enemySize.x,
+            ScreenHelper.getRightScreenBorder() + enemySize.x,
             bottom + ((top - bottom) * groupYPosition),
             transform.position.z
         );

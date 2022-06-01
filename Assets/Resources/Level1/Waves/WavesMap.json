@@ -3,6 +3,9 @@
   "wavesDelay": 0,
     "weaves": [
         {
+            "name": "VerticalSnake"
+        },
+        {
             "name": "MeteorsBelt",
             "y": 0.3
         },
@@ -16,6 +19,6 @@
         {
             "name": "StaticCannon",
             "y": 0.7
-        }       
+        }
     ]
 }

@@ -22,7 +22,7 @@ public class MeteorsBeltGroup : EnemyGroup
         if (enemiesInGroup.Count < EnemyGroupsConsts.VERTICAL_ENEMIES_COUNT)
             throw new NotEnougthObjects("MeteorsBelt");
 
-        float horizontalStart = ScreenHelper.getLeftScreenBorder() + ScreenHelper.getLeftScreenBorder() / 2;
+        float horizontalStart = ScreenHelper.getRightScreenBorder() + ScreenHelper.getRightScreenBorder() / 2;
         Vector2 size = enemiesInGroup[0].getSize();
         Vector3 startPosition = new Vector3(
             horizontalStart,
