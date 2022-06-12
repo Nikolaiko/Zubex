@@ -15,5 +15,11 @@ public enum EnemyGroupType
     METEORS_BELT,
 
     [EnumMember(Value = "VerticalSnake")]
-    VERTICAL_SNAKE
+    VERTICAL_SNAKE,
+
+    [EnumMember(Value = "SinusoidLines")]
+    SINUSOID_LINES,
+
+    [EnumMember(Value = "DiagonalGroup")]
+    DIAGONAL_GROUP
 }

@@ -41,18 +41,26 @@ public class RocketWallGroup : EnemyGroup
 
         enemiesInGroup = enemiesInGroup.OrderBy(a => Random.Range(0, 1000)).ToList();
 
-        enemiesInGroup[0].goToStartLocation(startPosition);
+        enemiesInGroup[0].setStartDestination(startPosition);
         for (int i = 1; i < 5; i++) {
             verticalPosition.y += size.y / 2.5f;
-            enemiesInGroup[i].goToStartLocation(verticalPosition);
+            enemiesInGroup[i].setStartDestination(verticalPosition);
         }
 
         verticalPosition = startPosition;
         for (int i = 5; i < enemiesInGroup.Count; i++) {
             verticalPosition.y -= size.y / 2.5f;
-            enemiesInGroup[i].goToStartLocation(verticalPosition);
+            enemiesInGroup[i].setStartDestination(verticalPosition);
         }
 
+    }
+
+    public override void addToScene(GameObject sceneObject)
+    {
+        base.addToScene(sceneObject);
+        foreach(RocketShip rocketShip in enemiesInGroup) {
+            rocketShip.goToStartLocation();
+        }
     }
 
     private void onEnemyDie(BaseEnemy enemy)

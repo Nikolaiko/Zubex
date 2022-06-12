@@ -3,7 +3,15 @@
   "wavesDelay": 0,
     "weaves": [
         {
-            "name": "VerticalSnake"
+            "name": "DiagonalGroup",
+            "direction": "Down"
+        },
+        {
+            "name": "DiagonalGroup",
+            "direction": "Up"
+        },
+        {
+            "name": "SinusoidLines"
         },
         {
             "name": "MeteorsBelt",

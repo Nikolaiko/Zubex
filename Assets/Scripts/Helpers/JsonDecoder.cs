@@ -20,6 +20,7 @@ public class JsonDecoder
             groupData.positionX = jSONEnemy.x;
             groupData.positionY = jSONEnemy.y;
             groupData.type = jSONEnemy.name;
+            groupData.movingDirection = jSONEnemy.direction;
             data.groups.Add(groupData);
         }
 

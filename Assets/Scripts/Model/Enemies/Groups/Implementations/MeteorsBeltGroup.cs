@@ -43,9 +43,13 @@ public class MeteorsBeltGroup : EnemyGroup
         for (int i = 5; i < enemiesInGroup.Count; i++) {
             verticalPosition.y -= size.y * 1.3f;
             enemiesInGroup[i].transform.position = verticalPosition;
-        }
+        }        
+    }
 
-        foreach(Meteor meteor in enemiesInGroup) {
+    public override void addToScene(GameObject sceneObject)
+    {
+        base.addToScene(sceneObject);
+        foreach (Meteor meteor in enemiesInGroup) {
             meteor.fly();
         }
     }

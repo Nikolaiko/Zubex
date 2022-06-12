@@ -19,9 +19,13 @@ public class RocketShip : BaseEnemy
     private bool attacking = false;
     private bool rocketReady = false;
 
-    public void goToStartLocation(Vector3 location)
+    public void setStartDestination(Vector3 location)
     {
         startingDestination = location;
+    }
+
+    public void goToStartLocation()
+    {        
         movingToStartDestination = true;
     }
 

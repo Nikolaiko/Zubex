@@ -5,18 +5,20 @@ using UnityEngine;
 
 public class SnakeGroup : EnemyGroup
 {
-    private static float GROUP_INITIAL_SPEED = 0.7f;
+    private static float GROUP_INITIAL_SPEED = 5.0f;
 
-    private float groupYPosition = 0.0f;
+    private bool movingToAttackPosition = false;
+    private Vector3 groupTargetPosition = Vector3.zero;
     private List<SnakePart> enemiesInGroup = new List<SnakePart>();
 
 
     public void AddEnemy(BaseEnemy enemy)
     {
         if (enemiesInGroup.Count < EnemyGroupsConsts.VERTICAL_SNAKE_ENEMIES_COUNT) {
-            SnakePart meteorEnemy = enemy as SnakePart;            
-            meteorEnemy.transform.SetParent(gameObject.transform);
-            enemiesInGroup.Add(meteorEnemy);
+            SnakePart snakeEnemy = enemy as SnakePart;
+            snakeEnemy.EnemyDieEvent += onEnemyDie;
+            snakeEnemy.transform.SetParent(gameObject.transform);
+            enemiesInGroup.Add(snakeEnemy);
         }
     }
 
@@ -26,22 +28,20 @@ public class SnakeGroup : EnemyGroup
             throw new NotEnougthObjects("Vertical Snake");
 
         Vector2 enemySize = enemiesInGroup[0].getSize();        
-        float pathPart = (ScreenHelper.getScreenWidthInCoors() * 3) / 100;
+        float pathPart = ScreenHelper.getScreenWidthInCoors() / 25;
 
-        transform.position = Vector3.zero;
-
-        Vector3 verticalPosition = Vector3.zero; //new Vector3(ScreenHelper.getLeftScreenBorder(), 0, 0);        
+        Vector3 verticalPosition = Vector3.zero;
 
         enemiesInGroup = enemiesInGroup.OrderBy(a => Random.Range(0, 1000)).ToList();
-        enemiesInGroup[4].transform.position = verticalPosition;
+        enemiesInGroup[3].transform.position = verticalPosition;
         
-        for (int i = 3; i >= 0; i--) {
+        for (int i = 2; i >= 0; i--) {
             verticalPosition.y += enemySize.y * 1.5f;
             enemiesInGroup[i].transform.position = verticalPosition;            
         }
 
         verticalPosition = Vector3.zero;
-        for (int i = 5; i < enemiesInGroup.Count; i++) {
+        for (int i = 4; i < enemiesInGroup.Count; i++) {
             verticalPosition.y -= enemySize.y * 1.5f;
             enemiesInGroup[i].transform.position = verticalPosition;            
         }
@@ -51,5 +51,56 @@ public class SnakeGroup : EnemyGroup
             enemiesInGroup[i].startMovingRepeatly(pathPart, moveDelay);
             moveDelay += 0.2f;
         }                  
-    }    
+    }
+
+    public override void addToScene(GameObject sceneObject)
+    {
+        base.addToScene(sceneObject);
+
+        Vector2 enemySize = enemiesInGroup[0].getSize();
+        Vector3 startPosition = new Vector3(
+            ScreenHelper.getRightScreenBorder() + enemySize.x * 4,
+            transform.position.y,
+            transform.position.z
+        );
+        transform.position = startPosition;
+
+        groupTargetPosition = new Vector3(
+            ScreenHelper.getRightScreenBorder() -  enemySize.x * 6,
+            transform.position.y,
+            transform.position.z
+        );
+      
+        movingToAttackPosition = true;      
+    }
+
+    public void Update()
+    {
+        if (movingToAttackPosition) {
+            gameObject.transform.Translate(Vector3.left * GROUP_INITIAL_SPEED * Time.deltaTime);
+            if (Vector3.Distance(transform.position, groupTargetPosition) <= 0.2f) {
+                movingToAttackPosition = false;
+            }
+        }
+    }
+
+    private void onEnemyDie(BaseEnemy enemy)
+    {
+        SnakePart snakePart = enemy as SnakePart;
+
+        if (enemiesInGroup.Contains(snakePart)) {
+            enemiesInGroup.Remove(snakePart);
+            enemy.destroyEnemy();
+            checkEnemiesInGroup();
+        } else {
+            throw new WrongEnemy("Trying to delete enemy" + enemy.name + "what not in group : " + name);
+        }
+    }
+
+    private void checkEnemiesInGroup()
+    {
+        if (enemiesInGroup.Count == 0) {
+            destroyGroup();
+        }
+    }
 }

@@ -28,10 +28,45 @@ public class ZubexEnemyGroupBuilder : MonoBehaviour
                 buildedGroup = buildVerticalSnake();
                 break;
             }
-        }
-
+        case EnemyGroupType.SINUSOID_LINES: {
+                buildedGroup = buildSinusoidalGroup();
+                break;
+            }
+        case EnemyGroupType.DIAGONAL_GROUP: {
+                buildedGroup = buildDiagonalGroup(data);
+                break;
+            }
+        }        
+    
         buildedGroup.transform.position = Vector3.zero;
         return buildedGroup;
+    }
+
+    private EnemyGroup buildDiagonalGroup(EnemyGroupData data)
+    {
+        GameObject groupObject = new GameObject("DiagonalGroup");
+        DiagonalGroup group = groupObject.AddComponent<DiagonalGroup>();
+
+        for (int i = 0; i < EnemyGroupsConsts.DIAGONAL_ENEMIES_COUNT; i++) {
+            GameObject enemyObject = buildEnemy(EnemyType.DIAGONAL_ENEMY);
+            group.AddEnemy(enemyObject.GetComponent<BaseEnemy>());
+            group.setGroupDirection(data.movingDirection);
+        }
+        group.AlignEnenmies();
+        return group;
+    }
+
+    private EnemyGroup buildSinusoidalGroup()
+    {
+        GameObject groupObject = new GameObject("SinusoidalGroup");
+        SinusoidLinesGroup group = groupObject.AddComponent<SinusoidLinesGroup>();
+
+        for (int i = 0; i < EnemyGroupsConsts.SINUSOIDAL_LINE_ENEMIES_COUNT; i++) {
+            GameObject enemyObject = buildEnemy(EnemyType.SINUSOIDAL_PART);
+            group.AddEnemy(enemyObject.GetComponent<BaseEnemy>());
+        }
+        group.AlignEnenmies();
+        return group;
     }
 
     private EnemyGroup buildVerticalSnake()
@@ -130,7 +165,13 @@ public class ZubexEnemyGroupBuilder : MonoBehaviour
         case EnemyType.VERTICAL_SNAKE_PART:
             enemyName = "SnakePart";
             break;
-        }        
+        case EnemyType.SINUSOIDAL_PART:
+            enemyName = "SinusoidalPart";
+            break;
+        case EnemyType.DIAGONAL_ENEMY:
+            enemyName = "DiagonalEnemy";
+            break;
+        }    
         return enemyName;
     }
 
