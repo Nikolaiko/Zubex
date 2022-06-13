@@ -6,10 +6,12 @@ public class RocketShip : BaseEnemy
 {
     public delegate void RocketReadyDelegate();
     public event RocketReadyDelegate RocketReadyEvent;
-    
+
+    public GameObject bulletInstance;
+
     private static float INITIAL_SPEED = 0.02f;
     private static float ATTACKING_SPEED = 25.0f;
-    private static float DISTANCE_ACCURACY = 0.001f;
+    private static float DISTANCE_ACCURACY = 0.1f;
     private static string ATTACK_METHOD_NAME = "startAttack";
 
     private Vector3 startingDestination = Vector3.zero;
@@ -18,6 +20,11 @@ public class RocketShip : BaseEnemy
     private bool movingToStartDestination = false;
     private bool attacking = false;
     private bool rocketReady = false;
+
+    public void Awake()
+    {
+        health = MachineGunBullet.DAMAGE * 2;
+    }
 
     public void setStartDestination(Vector3 location)
     {
@@ -41,6 +48,10 @@ public class RocketShip : BaseEnemy
                 movingToStartDestination = false;
                 rocketReady = true;
                 RocketReadyEvent?.Invoke();
+
+                if (Random.Range(0.0f, 1.0f) > 0.5f) {
+                    shot();
+                }
             }
         }
         if (attacking) {
@@ -61,5 +72,10 @@ public class RocketShip : BaseEnemy
     private void startAttack()
     {
         attacking = true;
+    }
+
+    private void shot()
+    {        
+        Instantiate(bulletInstance, transform.position, new Quaternion(), bulletsParent);        
     }
 }

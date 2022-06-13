@@ -5,8 +5,13 @@ public class ZubexEnemyGroupBuilder : MonoBehaviour
 {
     public int levelNumber = 0;
 
+    private Transform bulletsOrigin;
     private Dictionary<EnemyType, Object> loadedEnemies = new Dictionary<EnemyType, Object>();
 
+    public void setBulletsOrigin(Transform bulletsTarget)
+    {
+        bulletsOrigin = bulletsTarget;
+    }
 
     public EnemyGroup buildEnemyGroup(EnemyGroupData data)
     {
@@ -164,13 +169,16 @@ public class ZubexEnemyGroupBuilder : MonoBehaviour
         Object enemyObject;
         
         if (!loadedEnemies.ContainsKey(enemyType)) {
-            enemyObject = loadEnemyObject(enemyType);            
+            enemyObject = loadEnemyObject(enemyType);          
             loadedEnemies.Add(enemyType, enemyObject);
         } else {
             enemyObject = loadedEnemies[enemyType];
-        }          
-        return Instantiate(enemyObject) as GameObject;
+        }
+        GameObject enemyGameObject = Instantiate(enemyObject) as GameObject;
+        BaseEnemy baseEnemyScript = enemyGameObject.GetComponent<BaseEnemy>();
+        baseEnemyScript.setBulletsParent(bulletsOrigin);
 
+        return enemyGameObject;
     }
 
     private Object loadEnemyObject(EnemyType enemyType)

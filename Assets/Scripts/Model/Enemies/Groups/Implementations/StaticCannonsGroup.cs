@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StaticCannonsGroup : EnemyGroup
 {       
-    private static float GROUP_SPEED = 0.7f;    
+    private static float GROUP_SPEED = 1.7f;    
 
     private float groupYPosition = 0.0f;
     private List<BaseEnemy> enemiesInGroup = new List<BaseEnemy>();

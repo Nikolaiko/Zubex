@@ -3,7 +3,7 @@
 public class MachineGunBullet : BasicBullet
 {
     private static float SPEED = 15.0f;
-    private static int DAMAGE = 10;
+    public static int DAMAGE = 10;
 
     public override void Update() {
         base.Update();

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StaticCannonBullet : BasicBullet
+public class DirectEnemyBullet : BasicBullet
 {
     public float SPEED = 7.0f;
     public int DAMAGE = 10;
@@ -14,7 +14,7 @@ public class StaticCannonBullet : BasicBullet
     }
 
     protected override void onCollideWithObject(GameObject collidedObject)
-    {        
+    {
         ZubexGameCharacter heroObject = collidedObject.GetComponent<ZubexGameCharacter>();
         if (heroObject != null) {
             heroObject.applyDamage(DAMAGE);
