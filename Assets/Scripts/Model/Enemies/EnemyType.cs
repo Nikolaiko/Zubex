@@ -5,5 +5,6 @@ public enum EnemyType
     METEOR,
     VERTICAL_SNAKE_PART,
     SINUSOIDAL_PART,
-    DIAGONAL_ENEMY
+    DIAGONAL_ENEMY,
+    STEP_ENEMY
 }

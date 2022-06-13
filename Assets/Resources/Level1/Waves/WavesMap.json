@@ -3,8 +3,15 @@
   "wavesDelay": 0,
     "weaves": [
         {
-            "name": "DiagonalGroup",
+            "name": "StepGroup",
+            "direction": "Up"
+        },
+        {
+            "name": "StepGroup",
             "direction": "Down"
+        },
+        {
+            "name": "VerticalStaticCannons"
         },
         {
             "name": "DiagonalGroup",

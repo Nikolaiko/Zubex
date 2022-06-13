@@ -36,10 +36,45 @@ public class ZubexEnemyGroupBuilder : MonoBehaviour
                 buildedGroup = buildDiagonalGroup(data);
                 break;
             }
+        case EnemyGroupType.VERTICAL_STATIC_CANNONS: {
+                buildedGroup = buildVerticalStaticCannons();
+                break;
+            }
+        case EnemyGroupType.STEP_GROUP: {
+                buildedGroup = buildStepEnemyGroup(data);
+                break;
+            }
         }        
     
         buildedGroup.transform.position = Vector3.zero;
         return buildedGroup;
+    }
+
+    private EnemyGroup buildStepEnemyGroup(EnemyGroupData data)
+    {
+        GameObject groupObject = new GameObject("StepEnemyGroup");
+        StepEnemyGroup group = groupObject.AddComponent<StepEnemyGroup>();
+
+        for (int i = 0; i < EnemyGroupsConsts.STEP_ENEMY_COUNT; i++) {
+            GameObject enemyObject = buildEnemy(EnemyType.STEP_ENEMY);
+            group.setGroupDirection(data.movingDirection);
+            group.AddEnemy(enemyObject.GetComponent<BaseEnemy>());
+        }
+        group.AlignEnenmies();
+        return group;
+    }
+
+    private EnemyGroup buildVerticalStaticCannons()
+    {
+        GameObject groupObject = new GameObject("VerticalStationarEnemyGroup");
+        VerticalStaticCannonsGroup group = groupObject.AddComponent<VerticalStaticCannonsGroup>();
+
+        for (int i = 0; i < EnemyGroupsConsts.STATIC_VERTICAL_WALL_ENEMIES_COUNT; i++) {
+            GameObject enemyObject = buildEnemy(EnemyType.STATIC_CANNON);
+            group.AddEnemy(enemyObject.GetComponent<BaseEnemy>());
+        }        
+        group.AlignEnenmies();
+        return group;
     }
 
     private EnemyGroup buildDiagonalGroup(EnemyGroupData data)
@@ -170,6 +205,9 @@ public class ZubexEnemyGroupBuilder : MonoBehaviour
             break;
         case EnemyType.DIAGONAL_ENEMY:
             enemyName = "DiagonalEnemy";
+            break;
+        case EnemyType.STEP_ENEMY:
+            enemyName = "StepEnemy";
             break;
         }    
         return enemyName;

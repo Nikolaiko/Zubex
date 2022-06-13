@@ -21,5 +21,11 @@ public enum EnemyGroupType
     SINUSOID_LINES,
 
     [EnumMember(Value = "DiagonalGroup")]
-    DIAGONAL_GROUP
+    DIAGONAL_GROUP,
+
+    [EnumMember(Value = "VerticalStaticCannons")]
+    VERTICAL_STATIC_CANNONS,
+
+    [EnumMember(Value = "StepGroup")]
+    STEP_GROUP
 }
