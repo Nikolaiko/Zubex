@@ -3,22 +3,41 @@
   "wavesDelay": 0,
     "weaves": [
         {
-            "name": "StepGroup",
-            "direction": "Up"
+            "name": "StaticCannon",
+            "y": 0.3
         },
         {
-            "name": "StepGroup",
+            "name": "StaticCannon",
+            "y": 0.7
+        },
+        {
+            "name": "RocketWall"
+        },
+        {
+            "name": "StaticCannon",
+            "y": 0.7
+        },
+        {
+            "name": "StaticCannon",
+            "y": 0.3
+        },
+        {
+            "name": "MeteorsBelt",
+            "y": 0.3
+        },
+        {
+            "name": "VerticalSnake"
+        },
+        {
+            "name": "VerticalSnake"
+        },
+        {
+            "name": "DiagonalGroup",
             "direction": "Down"
-        },
-        {
-            "name": "VerticalStaticCannons"
         },
         {
             "name": "DiagonalGroup",
             "direction": "Up"
-        },
-        {
-            "name": "SinusoidLines"
         },
         {
             "name": "MeteorsBelt",
@@ -28,12 +47,23 @@
             "name": "RocketWall"
         },
         {
-            "name": "StaticCannon",
-            "y": 0.3
+            "name": "SinusoidLines"
+        },
+
+        {
+            "name": "VerticalStaticCannons"
+        },
+
+        {
+            "name": "VerticalStaticCannons"
         },
         {
-            "name": "StaticCannon",
-            "y": 0.7
+            "name": "StepGroup",
+            "direction": "Up"
+        },
+        {
+            "name": "StepGroup",
+            "direction": "Down"
         }
     ]
 }

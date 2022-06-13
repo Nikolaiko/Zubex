@@ -10,6 +10,12 @@ public abstract class BaseEnemy : MonoBehaviour, BasicGameObject
 
     protected bool appearedOnScreen = false;
     protected int health = 0;
+    protected Transform bulletsParent;
+
+    public void setBulletsParent(Transform bulletsOrigin)
+    {
+        bulletsParent = bulletsOrigin;
+    }
 
     public void activate()
     {

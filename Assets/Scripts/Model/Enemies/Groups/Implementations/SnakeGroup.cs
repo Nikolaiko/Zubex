@@ -6,7 +6,9 @@ using UnityEngine;
 public class SnakeGroup : EnemyGroup
 {
     private static float GROUP_INITIAL_SPEED = 5.0f;
+    private static float GROUP_NORMAL_SPEED = 0.7f;
 
+    private bool movingInAttackMode = false;
     private bool movingToAttackPosition = false;
     private Vector3 groupTargetPosition = Vector3.zero;
     private List<SnakePart> enemiesInGroup = new List<SnakePart>();
@@ -28,7 +30,7 @@ public class SnakeGroup : EnemyGroup
             throw new NotEnougthObjects("Vertical Snake");
 
         Vector2 enemySize = enemiesInGroup[0].getSize();        
-        float pathPart = ScreenHelper.getScreenWidthInCoors() / 25;
+        float pathPart = ScreenHelper.getScreenWidthInCoors() / 40;
 
         Vector3 verticalPosition = Vector3.zero;
 
@@ -49,7 +51,7 @@ public class SnakeGroup : EnemyGroup
         float moveDelay = 0.0f;
         for (int i = 0; i < enemiesInGroup.Count; i++) {
             enemiesInGroup[i].startMovingRepeatly(pathPart, moveDelay);
-            moveDelay += 0.2f;
+            moveDelay += 0.1f;
         }                  
     }
 
@@ -80,7 +82,10 @@ public class SnakeGroup : EnemyGroup
             gameObject.transform.Translate(Vector3.left * GROUP_INITIAL_SPEED * Time.deltaTime);
             if (Vector3.Distance(transform.position, groupTargetPosition) <= 0.2f) {
                 movingToAttackPosition = false;
+                movingInAttackMode = true;
             }
+        } else if (movingInAttackMode) {
+            gameObject.transform.Translate(Vector3.left * GROUP_NORMAL_SPEED * Time.deltaTime);
         }
     }
 

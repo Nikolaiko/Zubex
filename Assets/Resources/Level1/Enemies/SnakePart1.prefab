@@ -75,6 +75,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyCollider: {fileID: 4828355555420766069}
+  bulletInstance: {fileID: 7204202653890773252, guid: e1c1fde9620e64bc2b4833b46e1dcd7e,
+    type: 3}
 --- !u!212 &1575749023164215930
 SpriteRenderer:
   m_ObjectHideFlags: 0

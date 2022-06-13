@@ -31,8 +31,6 @@ public class SceneObject : MonoBehaviour
             character.addToScene(gameObject);
             character.activate();
 
-            character.becomeInvisible();
-
             guiManager.activeWeaponChange(character.getActiveWeaponType());
         }
 
@@ -113,6 +111,6 @@ public class SceneObject : MonoBehaviour
             guiManager.setLiveCount(characterLiveCount);
             deadCharacter.becomeInvisible();
             character.setPosition(characterStartingPosition);
-        }        
+        }
     }
 }

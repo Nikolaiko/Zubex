@@ -28,6 +28,7 @@ public class ZubexGroupManager : MonoBehaviour, EnemiesGroupManager
     public void setSceneObject(GameObject sceneObject)
     {
         groupScene = sceneObject;
+        groupBuilder.setBulletsOrigin(sceneObject.transform);
     }
 
     public void setWavesData(LevelGroupsData data)
