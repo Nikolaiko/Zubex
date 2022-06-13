@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StaticCannonsGroup : EnemyGroup
-{   
-    public static int ENEMIES_COUNT = 5;
+{       
     private static float GROUP_SPEED = 0.7f;    
 
+    private float groupYPosition = 0.0f;
     private List<BaseEnemy> enemiesInGroup = new List<BaseEnemy>();
+
+    public void setGroupXPosition(float y)
+    {
+        groupYPosition = y;
+    }
 
     public void AddEnemy(BaseEnemy enemy)
     {
-        if (enemiesInGroup.Count < ENEMIES_COUNT) {
+        if (enemiesInGroup.Count < EnemyGroupsConsts.STATIC_WALL_ENEMIES_COUNT) {
             enemiesInGroup.Add(enemy);
             enemy.transform.SetParent(gameObject.transform);
             enemy.EnemyDieEvent += onEnemyDie;
@@ -20,7 +25,8 @@ public class StaticCannonsGroup : EnemyGroup
 
     override public void AlignEnenmies()
     {
-        if (enemiesInGroup.Count < ENEMIES_COUNT) throw new NotEnougthObjects("Static Cannons");
+        if (enemiesInGroup.Count < EnemyGroupsConsts.STATIC_WALL_ENEMIES_COUNT)
+            throw new NotEnougthObjects("Static Cannons");
 
         Vector2 enemySize = enemiesInGroup[0].getSize();
 
@@ -47,10 +53,13 @@ public class StaticCannonsGroup : EnemyGroup
     {
         base.addToScene(sceneObject);
 
+        float top = ScreenHelper.getTopScreenBorder();
+        float bottom = ScreenHelper.getBottomScreenBorder();
         Vector2 enemySize = enemiesInGroup[0].getSize();
+
         Vector3 startPosition = new Vector3(
-            ScreenHelper.getLeftScreenBorder() + enemySize.x,
-            transform.position.y,
+            ScreenHelper.getRightScreenBorder() + enemySize.x,
+            bottom + ((top - bottom) * groupYPosition),
             transform.position.z
         );
         transform.position = startPosition;

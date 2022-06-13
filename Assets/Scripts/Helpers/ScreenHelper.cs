@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
 
 public class ScreenHelper
-{    
-    public static float getLeftScreenBorder()
+{
+    public static float getScreenWidthInCoors()
+    {
+        return Mathf.Abs(getLeftScreenBorder()) + Mathf.Abs(getRightScreenBorder());
+    }
+
+    public static float getRightScreenBorder()
     {
         return Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x;
     }
@@ -17,7 +22,7 @@ public class ScreenHelper
         return Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0)).y;
     }
 
-    public static float getRightScreenBorder()
+    public static float getLeftScreenBorder()
     {
         return Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0)).x;
     }

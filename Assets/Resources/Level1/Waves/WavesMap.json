@@ -2,8 +2,38 @@
   "initialDelay": 2,
   "wavesDelay": 0,
     "weaves": [
-        "RocketWall",
-        "StaticCannon",
-        "StaticCannon"
+        {
+            "name": "StepGroup",
+            "direction": "Up"
+        },
+        {
+            "name": "StepGroup",
+            "direction": "Down"
+        },
+        {
+            "name": "VerticalStaticCannons"
+        },
+        {
+            "name": "DiagonalGroup",
+            "direction": "Up"
+        },
+        {
+            "name": "SinusoidLines"
+        },
+        {
+            "name": "MeteorsBelt",
+            "y": 0.3
+        },
+        {
+            "name": "RocketWall"
+        },
+        {
+            "name": "StaticCannon",
+            "y": 0.3
+        },
+        {
+            "name": "StaticCannon",
+            "y": 0.7
+        }
     ]
 }
