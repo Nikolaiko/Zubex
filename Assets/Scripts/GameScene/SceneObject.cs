@@ -10,7 +10,7 @@ public class SceneObject : MonoBehaviour
     private EnemiesGroupManager enemiesGroupManager;
 
     private int characterLiveCount;
-    private Vector3 characterStartingPosition;
+    
     private ZubexGameCharacter character;
     private LevelGroupsData wavesData;
 
@@ -26,12 +26,29 @@ public class SceneObject : MonoBehaviour
 
         if (sceneHeroBuilder != null) {
             character = sceneHeroBuilder.buildHero();
-            character.HeroDeathEvent += onHeroDeath;
-            character.setPosition(characterStartingPosition);
+            character.HeroDeathEvent += onHeroDeath;            
             character.addToScene(gameObject);
             character.activate();
 
             guiManager.activeWeaponChange(character.getActiveWeaponType());
+
+            float leftBorder = ScreenHelper.getLeftScreenBorder();
+            Vector2 heroSize = character.getSize();
+
+            Vector3 characterStartingPosition = new Vector3(
+                leftBorder + heroSize.x * 3,
+                0,
+                0
+            );
+
+            Vector3 respawnPosition = new Vector3(
+                leftBorder - heroSize.x,
+                0,
+                0
+            );
+
+            character.initPositions(respawnPosition, characterStartingPosition);
+            character.respawnPlayer();
         }
 
         if (userControl != null) {
@@ -45,7 +62,7 @@ public class SceneObject : MonoBehaviour
     }
 
     public void Update() {
-        if (ScreenHelper.isOutOfScreen(character.transform.position)) {
+        if (ScreenHelper.isOutOfScreen(character.transform.position) && !character.isRespawnInProcess()) {
             onHeroDeath(character);            
         }
     }
@@ -67,9 +84,7 @@ public class SceneObject : MonoBehaviour
     private void InitVariables() {
         JsonDecoder jsonDecoder = new JsonDecoder();
         wavesData = jsonDecoder.parseWavesData("Level1/Waves/WavesMap");
-
-        characterStartingPosition = ScreenHelper.screenToCameraPosition(new Vector2(Screen.width / 4, Screen.height / 2));
-
+      
         characterLiveCount = UtilConsts.INITIAL_LIVE_COUNT;
     }
 
@@ -109,8 +124,7 @@ public class SceneObject : MonoBehaviour
             SceneManager.LoadSceneAsync(SceneNumbers.GAME_OVER_SCENE_NUMBER);
         } else {
             guiManager.setLiveCount(characterLiveCount);
-            deadCharacter.becomeInvisible();
-            character.setPosition(characterStartingPosition);
+            character.respawnPlayer();
         }
     }
 }
