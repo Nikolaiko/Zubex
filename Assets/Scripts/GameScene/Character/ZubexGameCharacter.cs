@@ -9,20 +9,28 @@ public class ZubexGameCharacter : MonoBehaviour, BasicGameObject
     private SpriteRenderer cocpitRender;
     private SpriteRenderer endgineRender;
 
+    private const int RESPAWN_SPEED_VALUE = 3;
     private const int SPEED_VALUE = 10;
     private const int STARTING_HEALTH = 0;
     private const int TOTAL_INVICIBILTY_TIME = 3;
     private const float INVICIBILTY_BLINK_INTERVAL = 0.15f;
+    private const string INVINCIBILITY_STOP_FUNCTION = "stopInvincibilityFrames";
 
     private int health = 0;
     private float blinkStepTime = 0.0f;
     private float totalBlinkTime = 0.0f;
 
     private bool isActive = false;
-    private bool isBlinking = false;
+    private bool isRespawning = false;
+    private bool isInvincible = false;
 
     private Rigidbody2D heroBody;
-    private WeaponArsenal weaponsArsenal;    
+    private WeaponArsenal weaponsArsenal;
+    private BoxCollider2D boxCollider;
+
+    private Vector3 characterStartingPosition;
+    private Vector3 respawnPosition;
+    private Vector3 respawnDirection;
 
     public void Awake() {
         health = STARTING_HEALTH;
@@ -31,6 +39,7 @@ public class ZubexGameCharacter : MonoBehaviour, BasicGameObject
         weaponsArsenal = GetComponent<WeaponArsenal>();
         weaponsArsenal.initArsenal();
 
+        boxCollider = GetComponent<BoxCollider2D>();
 
         SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         foreach(SpriteRenderer renderer in spriteRenderers) {
@@ -42,9 +51,43 @@ public class ZubexGameCharacter : MonoBehaviour, BasicGameObject
         }
     }
 
+    public void initPositions(Vector3 respawn, Vector3 start)
+    {
+        characterStartingPosition = start;
+        respawnPosition = respawn;
+        respawnDirection = (characterStartingPosition - respawn).normalized;
+    }
+
+    public Vector2 getSize()
+    {
+        return boxCollider.size * transform.lossyScale;
+    }
+
+    public void respawnPlayer()
+    {
+        CancelInvoke(INVINCIBILITY_STOP_FUNCTION);
+
+        transform.position = respawnPosition;
+        isRespawning = true;
+        isInvincible = true;
+    }
+
+    public bool isRespawnInProcess()
+    {
+        return isRespawning;
+    }
+
     public void Update()
     {
-        if (isBlinking) {
+        if (isRespawning) {
+            transform.Translate(RESPAWN_SPEED_VALUE * respawnDirection * Time.deltaTime);
+            if (Vector3.Distance(characterStartingPosition, transform.position) <= UtilConsts.DISTANCE_ALLOWED_DIFF) {
+                isRespawning = false;
+                Invoke(INVINCIBILITY_STOP_FUNCTION, TOTAL_INVICIBILTY_TIME);
+            }
+        }
+
+        if (isInvincible) {
             blinkEffect();
         }    
     }
@@ -64,7 +107,7 @@ public class ZubexGameCharacter : MonoBehaviour, BasicGameObject
     }
 
     public void move(Vector2 movingVector) {
-        if (isActive == true) {
+        if (isActive == true && !isRespawning) {
             if (movingVector.x > 0.5f || movingVector.x < -0.5f) {
                 int moveSpeed = (movingVector.x > 0.5) ? SPEED_VALUE : -SPEED_VALUE;
                 heroBody.velocity = new Vector2(moveSpeed, heroBody.velocity.y);
@@ -83,7 +126,7 @@ public class ZubexGameCharacter : MonoBehaviour, BasicGameObject
 
     public void applyDamage(int incomeDamage)
     {
-        if (!isBlinking) {
+        if (!isInvincible) {
             health -= incomeDamage;
             if (health <= 0) {
                 HeroDeathEvent?.Invoke(this);
@@ -107,7 +150,7 @@ public class ZubexGameCharacter : MonoBehaviour, BasicGameObject
 
     public void becomeInvisible()
     {
-        isBlinking = true;        
+        isRespawning = true;        
     }
 
     public WeaponType nextWeapon() {
@@ -121,30 +164,30 @@ public class ZubexGameCharacter : MonoBehaviour, BasicGameObject
     public WeaponType getActiveWeaponType()
     {
         return weaponsArsenal.getActiveWeaponType();
-    }
+    }  
 
     private void blinkEffect()
     {
-        totalBlinkTime += Time.deltaTime;
-        if (totalBlinkTime >= TOTAL_INVICIBILTY_TIME) {
-            totalBlinkTime = 0.0f;
-            isBlinking = false;
-
-            cocpitRender.enabled = true;
-            endgineRender.enabled = true;
-        } else {
-
-            blinkStepTime += Time.deltaTime;
-            if (blinkStepTime >= INVICIBILTY_BLINK_INTERVAL) {
-                if (endgineRender.enabled) {
-                    endgineRender.enabled = false;
-                    cocpitRender.enabled = false;                    
-                } else {
-                    endgineRender.enabled = true;
-                    cocpitRender.enabled = true;
-                }
-                blinkStepTime = 0.0f;
+        blinkStepTime += Time.deltaTime;
+        if (blinkStepTime >= INVICIBILTY_BLINK_INTERVAL) {
+            if (endgineRender.enabled) {
+                endgineRender.enabled = false;
+                cocpitRender.enabled = false;
+            } else {
+                endgineRender.enabled = true;
+                cocpitRender.enabled = true;
             }
-        }
+            blinkStepTime = 0.0f;
+        }   
+    }
+
+    private void stopInvincibilityFrames()
+    {
+        isInvincible = false;
+        totalBlinkTime = 0.0f;
+        blinkStepTime = 0.0f;
+
+        cocpitRender.enabled = true;
+        endgineRender.enabled = true;
     }
 }
